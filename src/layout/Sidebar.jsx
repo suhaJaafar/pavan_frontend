@@ -28,9 +28,9 @@ const Sidebar = ({ links, children }) => {
                 </button>
                 <div className="gap-x-4 items-center p-2 hidden md:block">
     <FaTooth
-        className={`cursor-pointer duration-500 h-7 text-2xl ${open && 'rotate-[360deg] h-7'}`}
+        className={`cursor-pointer duration-500 h-7 ${open && 'rotate-[360deg] h-7'}`}
         onClick={() => setOpen(!open)}
-        style={{ color: '#ffffff'}}
+        style={{ color: '#ffffff' }}
     />
 </div>
                 <ul className="pt-4">

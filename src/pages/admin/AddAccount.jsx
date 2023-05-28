@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import api from '../../api/api';
 import Input from '../../component/Input';
+import Layout from '../../layout/Layout';
 
 
 export default function AddAccount() {
@@ -31,6 +32,7 @@ export default function AddAccount() {
     };
 
     return (
+        <Layout>
       <div>
         <h2>Add Account</h2>
         <form onSubmit={handleSubmit}>
@@ -77,5 +79,7 @@ export default function AddAccount() {
           <button type="submit">Add Account</button>
         </form>
       </div>
+          </Layout>
+
     );
   }
