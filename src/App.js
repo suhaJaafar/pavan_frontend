@@ -11,6 +11,8 @@ import Account from "./pages/Account";
 import PatientsList from "./pages/doctor/PatientsList";
 import AllPatients from "./pages/doctor/AllPatients";
 import AdminAccount from "./AdminAccount";
+import Balance from "./pages/admin/Balance";
+import AddAccount from "./pages/admin/AddAccount";
 // import Profile from "./pages/doctor/";
 
 
@@ -21,6 +23,8 @@ export default function App() {
           <Route path="/" element={<Login />}/>
           <Route path="/admin-dashboard" element={<ProtectedRoute component={AdminDashboard} requiredRole="admin"/>}/>
           <Route path="/admin-users" element={<ProtectedRoute component={Users} requiredRole="admin"/>}/>
+          <Route path="/balance" element={<ProtectedRoute component={Balance} requiredRole="admin"/>}/>
+          <Route path="/add-account" element={<ProtectedRoute component={AddAccount} requiredRole="admin"/>}/>
 
           <Route path="/admin-expenses" element={<ProtectedRoute component={Expenses} requiredRole="admin"/>}/>
           <Route path="/doctor-dashboard" element={<ProtectedRoute component={DoctorDashboard} requiredRole="doctor" />}/>

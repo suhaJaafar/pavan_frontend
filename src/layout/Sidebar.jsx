@@ -27,12 +27,12 @@ const Sidebar = ({ links, children }) => {
                     <CgArrowRightO/>
                 </button>
                 <div className="gap-x-4 items-center p-2 hidden md:block">
-                    <FaTooth
-                        className={`cursor-pointer duration-500 h-7 text-2xl ${open && 'rotate-[360deg] h-7'}`}
-                        onClick={() => setOpen(!open)}
-                        style={{ color: '#ffffff'}}
-                    />
-                </div>
+    <FaTooth
+        className={`cursor-pointer duration-500 h-7 text-2xl ${open && 'rotate-[360deg] h-7'}`}
+        onClick={() => setOpen(!open)}
+        style={{ color: '#ffffff'}}
+    />
+</div>
                 <ul className="pt-4">
                     {links.map((link, index) => (
                             <li key={index}>

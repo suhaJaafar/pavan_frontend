@@ -12,8 +12,9 @@ const getSidebarLinks = (userRole) => {
                 { label: 'Dashboard', path: '/admin-dashboard', icon:AiOutlineHome , gap: false },
                 { label: 'Users', path: '/admin-users', icon:FaUsers , gap: false },
                 { label: 'Expenses', path: '/admin-expenses', icon:SlWallet , gap: false },
-                // { label: 'Account', path: '/account', icon: AiFillSetting, gap: false},
-                { label: 'AdminAccount', path: '/account', icon: AiFillSetting, gap: false},
+                { label: 'Admin Account', path: '/account', icon: AiFillSetting, gap: false},
+                { label: 'Balance', path: '/balance', icon: AiFillSetting, gap: false},
+                { label: 'Add Account', path: '/add-account', icon: AiFillSetting, gap: false},
 
             ];
         case 'doctor':
