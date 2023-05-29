@@ -4,13 +4,13 @@ import {useNavigate} from "react-router-dom";
 
 const api = axios.create({
     baseURL: 'http://localhost:8000/api',
-    timeout: 5000,
+    timeout: 10000,
 });
 
 const refreshTokenIfNeeded = (token) => {
     return new Promise(async (resolve) => {
         const decodedToken = jwtDecode(token);
-        const currentTime = Date.now() / 5000;
+        const currentTime = Date.now() / 10000;
         const bufferTime = 5256000; // Refresh the token if it's going to expire within the next 60 seconds
 
         if (decodedToken.exp - currentTime < bufferTime) {

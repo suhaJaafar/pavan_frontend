@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import api from '../../api/api';
 import Input from '../../component/Input';
 import Layout from '../../layout/Layout';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function AddAccount() {
@@ -9,6 +10,7 @@ export default function AddAccount() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [roleId, setRoleId] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -19,8 +21,10 @@ export default function AddAccount() {
           password,
           role_id: roleId,
         });
-        console.log(response.data); // Handle the response as needed
-        // Reset form fields if needed
+
+        console.log(response.data);
+        navigate(-1);
+
         setName('');
         setEmail('');
         setPassword('');

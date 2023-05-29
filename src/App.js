@@ -13,6 +13,9 @@ import AllPatients from "./pages/doctor/AllPatients";
 import AdminAccount from "./AdminAccount";
 import Balance from "./pages/admin/Balance";
 import AddAccount from "./pages/admin/AddAccount";
+import GetUserById from "./pages/admin/GetUserById";
+import EditUserForm from "./pages/admin/EditUserForm";
+import UserDetails from "./pages/admin/UserDetails";
 // import Profile from "./pages/doctor/";
 
 
@@ -25,6 +28,11 @@ export default function App() {
           <Route path="/admin-users" element={<ProtectedRoute component={Users} requiredRole="admin"/>}/>
           <Route path="/balance" element={<ProtectedRoute component={Balance} requiredRole="admin"/>}/>
           <Route path="/add-account" element={<ProtectedRoute component={AddAccount} requiredRole="admin"/>}/>
+          {/* <Route path="/user/:id" element={<ProtectedRoute component={GetUserById} requiredRole="admin" />} /> */}
+          {/* <Route path="/user/:userId" component={GetUserById} /> */}
+          {/* <Route path="/user/:userId" component={GetUserById} /> */}
+          <Route path="/users/:id/edit" element={<EditUserForm />} />
+          <Route path="/user/:id" element={<UserDetails />} />
 
           <Route path="/admin-expenses" element={<ProtectedRoute component={Expenses} requiredRole="admin"/>}/>
           <Route path="/doctor-dashboard" element={<ProtectedRoute component={DoctorDashboard} requiredRole="doctor" />}/>
