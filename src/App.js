@@ -6,7 +6,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import DoctorDashboard from "./pages/doctor/DoctorDashboard";
 import SecretaryDashboard from "./pages/secertary/SecretaryDashboard";
 import Users from "./pages/admin/Users/Users";
-import Expenses from "./pages/admin/Expenses";
+import Expenses from "./pages/admin/Expenses/Expenses";
 import Account from "./pages/Account";
 import PatientsList from "./pages/doctor/PatientsList";
 import AllPatients from "./pages/doctor/AllPatients";
@@ -20,6 +20,9 @@ import ViewPatients from "./pages/admin/Patients/ViewPatients";
 import AddPatient from "./pages/admin/Patients/AddPatient";
 import EditPatientForm from "./pages/admin/Patients/EditPatientForm";
 import GetPatientById from "./pages/admin/Patients/GetPatientById";
+import AddExpenses from "./pages/admin/Expenses/AddExpenses";
+import GetExpenseById from "./pages/admin/Expenses/GetExpenseById";
+import EditExpense from "./pages/admin/Expenses/EditExpense";
 
 // import Profile from "./pages/doctor/";
 
@@ -44,9 +47,15 @@ export default function App() {
           <Route path="/patients" element={<ProtectedRoute component={ViewPatients} requiredRole="admin"/>}/>
           <Route path="/add-patient" element={<ProtectedRoute component={AddPatient} requiredRole="admin"/>}/>
           <Route
-  path="/patient/:id/edit"
-  element={<ProtectedRoute component={() => <EditPatientForm patientId={id} />} requiredRole="admin" />}
-/>
+            path="/patient/:id/edit"
+            element={<ProtectedRoute component={() => <EditPatientForm patientId={id} />} requiredRole="admin" />}
+        />
+
+{/* Expenses */}
+        <Route path="/add-expense" element={<ProtectedRoute component={AddExpenses} requiredRole="admin"/>}/>
+        <Route path="/expenses/:id" element={<GetExpenseById />} />
+        <Route path="/expenses/:id/edit" element={<EditExpense />} />
+
 
           <Route path="/admin-expenses" element={<ProtectedRoute component={Expenses} requiredRole="admin"/>}/>
           <Route path="/doctor-dashboard" element={<ProtectedRoute component={DoctorDashboard} requiredRole="doctor" />}/>

@@ -40,7 +40,7 @@ const Layout = ({ children }) => {
     const decodedToken = jwt_decode(localStorage.getItem("access_token"));
     const sidebarLinks = getSidebarLinks(decodedToken.role);
     return (
-        <div className="grid min-h-screen grid-rows-header bg-gray-200  ">
+        <div className=" grid min-h-screen grid-rows-header bg-gray-200  ">
             <div className="grid md:grid-cols-sidebar">
                 <Sidebar links={sidebarLinks} children={children}/>
             </div>

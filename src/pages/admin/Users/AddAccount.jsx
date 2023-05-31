@@ -38,6 +38,7 @@ export default function AddAccount() {
     return (
         <Layout>
       <div>
+
         <h2>Add Account</h2>
         <form onSubmit={handleSubmit}>
           <Input

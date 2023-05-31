@@ -38,8 +38,21 @@ export default function EditUserForm() {
       });
   }, [id]);
 
+  const handleNameChange = (e) => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      name: e.target.value,
+    }));
+  };
 
-  const handleChange = (e) => {
+  const handleEmailChange = (e) => {
+    setUser((prevUser) => ({
+      ...prevUser,
+      email: e.target.value,
+    }));
+  };
+
+  const handleRoleChange = (e) => {
     setUser((prevUser) => ({
       ...prevUser,
       role: e.target.value,
@@ -62,17 +75,16 @@ export default function EditUserForm() {
       });
   };
 
-
   return (
     <Layout>
       <div>
         <h1 className="font-bold text-2xl">Edit User</h1>
-        <br></br>
+        <br />
         <form onSubmit={handleSubmit}>
           <label>
-            <span className=" font-bold">Name:</span>
+            <span className="font-bold">Name:</span>
             <Input
-              handleChange={handleChange}
+              handleChange={handleNameChange}
               value={user.name}
               labelText="Name:"
               labelFor="name"
@@ -86,10 +98,10 @@ export default function EditUserForm() {
           </label>
           <br />
           <label>
-            <span className=" font-bold">Email:</span>
+            <span className="font-bold">Email:</span>
 
             <Input
-              handleChange={handleChange}
+              handleChange={handleEmailChange}
               value={user.email}
               labelText="Email:"
               labelFor="email"
@@ -103,29 +115,28 @@ export default function EditUserForm() {
           </label>
           <br />
           <label className="flex items-center">
-  <span className="mr-2 font-bold">Role:</span>
-  <select
-    name="role"
-    value={user.role}
-    onChange={handleChange}
-    required
-    className="w-32 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-  >
-    <option value="">Select Role</option>
-    {roleOptions.map((option) => (
-      <option key={option.value} value={option.value}>
-        {option.label}
-      </option>
-    ))}
-  </select>
-</label>
-
-
+            <span className="mr-2 font-bold">Role:</span>
+            <select
+              name="role"
+              value={user.role}
+              onChange={handleRoleChange}
+              required
+              className="w-32 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select Role</option>
+              {roleOptions.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+          </label>
           <br />
-          <button className=" bg-cyan-500 border-cyan-600 px-4 py-2 rounded-md text-white" type="submit">Update User</button>
+          <button className="bg-cyan-500 border-cyan-600 px-4 py-2 rounded-md text-white" type="submit">
+            Update User
+          </button>
         </form>
       </div>
     </Layout>
   );
-
 }
