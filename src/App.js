@@ -1,25 +1,31 @@
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useParams} from "react-router-dom";
 import Login from "./pages/Login";
 import ProtectedRoute from "./utils/protectedRoute";
 import NotFound from "./pages/error/NotFound";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import DoctorDashboard from "./pages/doctor/DoctorDashboard";
 import SecretaryDashboard from "./pages/secertary/SecretaryDashboard";
-import Users from "./pages/admin/Users";
+import Users from "./pages/admin/Users/Users";
 import Expenses from "./pages/admin/Expenses";
 import Account from "./pages/Account";
 import PatientsList from "./pages/doctor/PatientsList";
 import AllPatients from "./pages/doctor/AllPatients";
 import AdminAccount from "./AdminAccount";
 import Balance from "./pages/admin/Balance";
-import AddAccount from "./pages/admin/AddAccount";
-import GetUserById from "./pages/admin/GetUserById";
-import EditUserForm from "./pages/admin/EditUserForm";
-import UserDetails from "./pages/admin/UserDetails";
+import AddAccount from "./pages/admin/Users/AddAccount";
+import GetUserById from "./pages/admin/Users/GetUserById";
+import EditUserForm from "./pages/admin/Users/EditUserForm";
+import UserDetails from "./pages/admin/Users/UserDetails";
+import ViewPatients from "./pages/admin/Patients/ViewPatients";
+import AddPatient from "./pages/admin/Patients/AddPatient";
+import EditPatientForm from "./pages/admin/Patients/EditPatientForm";
+import GetPatientById from "./pages/admin/Patients/GetPatientById";
+
 // import Profile from "./pages/doctor/";
 
 
 export default function App() {
+    const { id } = useParams();
 
   return (
       <Routes>
@@ -33,6 +39,14 @@ export default function App() {
           {/* <Route path="/user/:userId" component={GetUserById} /> */}
           <Route path="/users/:id/edit" element={<EditUserForm />} />
           <Route path="/user/:id" element={<UserDetails />} />
+          <Route path="/patient/:id" element={<GetPatientById baseUrl="http://localhost:8000/api" />} />
+
+          <Route path="/patients" element={<ProtectedRoute component={ViewPatients} requiredRole="admin"/>}/>
+          <Route path="/add-patient" element={<ProtectedRoute component={AddPatient} requiredRole="admin"/>}/>
+          <Route
+  path="/patient/:id/edit"
+  element={<ProtectedRoute component={() => <EditPatientForm patientId={id} />} requiredRole="admin" />}
+/>
 
           <Route path="/admin-expenses" element={<ProtectedRoute component={Expenses} requiredRole="admin"/>}/>
           <Route path="/doctor-dashboard" element={<ProtectedRoute component={DoctorDashboard} requiredRole="doctor" />}/>

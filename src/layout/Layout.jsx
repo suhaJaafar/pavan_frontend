@@ -11,6 +11,7 @@ const getSidebarLinks = (userRole) => {
             return [
                 { label: 'Dashboard', path: '/admin-dashboard', icon:AiOutlineHome , gap: false },
                 { label: 'Users', path: '/admin-users', icon:FaUsers , gap: false },
+                { label: 'Patients', path: '/patients', icon:FaUsers , gap: false },
                 { label: 'Expenses', path: '/admin-expenses', icon:SlWallet , gap: false },
                 { label: 'Admin Account', path: '/account', icon: AiFillSetting, gap: false},
                 { label: 'Balance', path: '/balance', icon: AiFillSetting, gap: false},
@@ -39,7 +40,7 @@ const Layout = ({ children }) => {
     const decodedToken = jwt_decode(localStorage.getItem("access_token"));
     const sidebarLinks = getSidebarLinks(decodedToken.role);
     return (
-        <div className="grid min-h-screen grid-rows-header bg-slate-50">
+        <div className="grid min-h-screen grid-rows-header bg-gray-200  ">
             <div className="grid md:grid-cols-sidebar">
                 <Sidebar links={sidebarLinks} children={children}/>
             </div>

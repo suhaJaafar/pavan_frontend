@@ -4,6 +4,7 @@ import {useNavigate} from "react-router-dom";
 
 const api = axios.create({
     baseURL: 'http://localhost:8000/api',
+    baseUrlImages: 'http://localhost:8000',
     timeout: 10000,
 });
 
@@ -51,6 +52,7 @@ async function handleRequestWithTokenRefresh(requestConfig) {
 const apiWrapper = {
     post: (url, data, config) => handleRequestWithTokenRefresh({ method: 'post', url, data, ...config }),
     get: (url, config) => handleRequestWithTokenRefresh({ method: 'get', url, ...config }),
+    patch: (url, data, config) => handleRequestWithTokenRefresh({ method: 'patch', url, data, ...config }),
     put: (url, data, config) => handleRequestWithTokenRefresh({ method: 'put', url, data, ...config }),
     delete: (url, config) => handleRequestWithTokenRefresh({ method: 'delete', url, ...config }),
 };

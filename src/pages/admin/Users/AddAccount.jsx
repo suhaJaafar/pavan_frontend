@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import api from '../../api/api';
-import Input from '../../component/Input';
-import Layout from '../../layout/Layout';
+import api from '../../../api/api';
+import Input from '../../../component/Input';
+import Layout from '../../../layout/Layout';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -9,7 +9,7 @@ export default function AddAccount() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [roleId, setRoleId] = useState('');
+    const [roleName, setRoleName] = useState(''); // Use roleName instead of roleId
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -19,7 +19,7 @@ export default function AddAccount() {
           name,
           email,
           password,
-          role_id: roleId,
+          role_name: roleName,
         });
 
         console.log(response.data);
@@ -28,7 +28,7 @@ export default function AddAccount() {
         setName('');
         setEmail('');
         setPassword('');
-        setRoleId('');
+        setRoleName('');
       } catch (error) {
         console.error(error);
         // Handle error if registration fails
@@ -70,16 +70,16 @@ export default function AddAccount() {
             isRequired={true}
             placeholder="Enter password"
           />
-          <Input
-            handleChange={(e) => setRoleId(e.target.value)}
-            value={roleId}
-            labelText="Role ID"
-            id="roleId"
-            name="roleId"
-            type="text"
-            isRequired={true}
-            placeholder="Enter role ID"
-          />
+                <select
+                    value={roleName}
+                    onChange={(e) => setRoleName(e.target.value)}
+                    required
+                    >
+                    <option value="">Select Role</option>
+                    <option value="admin">Admin</option>
+                    <option value="doctor">Doctor</option>
+                    <option value="secretary">Secretary</option>
+        </select>
           <button type="submit">Add Account</button>
         </form>
       </div>

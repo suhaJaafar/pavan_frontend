@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import api from '../../api/api';
-import Layout from '../../layout/Layout';
-import Input from '../../component/Input';
-import Table from '../../component/Table';
+import api from '../../../api/api';
+import Layout from '../../../layout/Layout';
+import Input from '../../../component/Input';
+import Table from '../../../component/Table';
 
 export default function EditUserForm() {
   const { id } = useParams();
@@ -12,31 +12,45 @@ export default function EditUserForm() {
   const [user, setUser] = useState({
     name: '',
     email: '',
-    role_id: '', // Change 'role' to 'role_id'
+    role: '',
   });
+  const roleOptions = [
+    { value: 'admin', label: 'Admin' },
+    { value: 'doctor', label: 'Doctor' },
+    { value: 'secretary', label: 'Secretary' },
+  ];
 
   useEffect(() => {
     api
       .get(`/user/${id}`)
       .then((res) => {
-        setUser(res.data);
+        const userData = res.data;
+        const userRole = userData.role ? userData.role : '';
+        setUser((prevUser) => ({
+          ...prevUser,
+          name: userData.name,
+          email: userData.email,
+          role: userRole,
+        }));
       })
       .catch((error) => {
         console.error('Error fetching user:', error);
       });
   }, [id]);
 
+
   const handleChange = (e) => {
     setUser((prevUser) => ({
       ...prevUser,
-      [e.target.name]: e.target.value,
+      role: e.target.value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const updatedUser = { ...user, role_name: user.role };
     api
-      .post(`/user/${id}`, user)
+      .post(`/user/${id}`, updatedUser)
       .then((res) => {
         // User updated successfully
         console.log('User updated:', res.data);
@@ -48,13 +62,15 @@ export default function EditUserForm() {
       });
   };
 
+
   return (
     <Layout>
       <div>
-        <h2>Edit User</h2>
+        <h1 className="font-bold text-2xl">Edit User</h1>
+        <br></br>
         <form onSubmit={handleSubmit}>
           <label>
-            Name:
+            <span className=" font-bold">Name:</span>
             <Input
               handleChange={handleChange}
               value={user.name}
@@ -70,7 +86,8 @@ export default function EditUserForm() {
           </label>
           <br />
           <label>
-            Email:
+            <span className=" font-bold">Email:</span>
+
             <Input
               handleChange={handleChange}
               value={user.email}
@@ -85,23 +102,27 @@ export default function EditUserForm() {
             />
           </label>
           <br />
-          <label>
-            Role ID:
-            <Input
-              handleChange={handleChange}
-              value={user.role_id}
-              labelText="Role ID:"
-              labelFor="role_id"
-              id="role_id"
-              name="role_id"
-              type="text"
-              isRequired={true}
-              placeholder="Enter role ID"
-              customClass="your-custom-class"
-            />
-          </label>
+          <label className="flex items-center">
+  <span className="mr-2 font-bold">Role:</span>
+  <select
+    name="role"
+    value={user.role}
+    onChange={handleChange}
+    required
+    className="w-32 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+  >
+    <option value="">Select Role</option>
+    {roleOptions.map((option) => (
+      <option key={option.value} value={option.value}>
+        {option.label}
+      </option>
+    ))}
+  </select>
+</label>
+
+
           <br />
-          <button type="submit">Update User</button>
+          <button className=" bg-cyan-500 border-cyan-600 px-4 py-2 rounded-md text-white" type="submit">Update User</button>
         </form>
       </div>
     </Layout>

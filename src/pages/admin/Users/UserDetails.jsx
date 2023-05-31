@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import api from '../../api/api';
-import Layout from '../../layout/Layout';
+import api from '../../../api/api';
+import Layout from '../../../layout/Layout';
 
 export default function UserDetails() {
   const { id } = useParams();

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Layout from '../../layout/Layout';
-import api from '../../api/api';
-import Table from '../../component/Table';
-import Input from '../../component/Input';
+import Layout from '../../../layout/Layout';
+import api from '../../../api/api';
+import Table from '../../../component/Table';
+import Input from '../../../component/Input';
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -75,26 +75,26 @@ export default function Users() {
       },
       {
         Header: 'Role',
-        accessor: 'role.name',
+        accessor: 'role_name',
       },
       {
         Header: 'Actions',
         accessor: 'id',
         Cell: ({ value }) => (
           <div className="flex gap-2">
-            <Link to={`/user/${value}`} className="bg-blue-500 hover:bg-blue-600 text-white py-1 px-2 rounded">
+            <Link to={`/user/${value}`}  className="bg-teal-600 hover:bg-teal-700 text-white py-2 px-4 rounded">
               View
             </Link>
 
             <Link
               to={`/users/${value}/edit`} // Replace with the appropriate edit user route
-              className="bg-green-500 hover:bg-green-600 text-white py-1 px-2 rounded"
+              className=" bg-gray-500 hover:bg-gray-600 text-white  py-2 px-4  rounded"
             >
               Edit
             </Link>
             <button
               onClick={() => handleDeleteUser(value)}
-              className="bg-red-500 hover:bg-red-600 text-white py-1 px-2 rounded"
+              className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
             >
               Delete
             </button>
@@ -111,7 +111,7 @@ export default function Users() {
         <div className="flex justify-end mb-4">
           <Link
             to="/add-account" // Replace with the appropriate add user route
-            className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
+            className=" bg-teal-300 hover:bg-teal-400 text-white py-4 px-6 rounded"
           >
             Add New User
           </Link>

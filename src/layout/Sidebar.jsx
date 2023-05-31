@@ -17,16 +17,16 @@ const Sidebar = ({ links, children }) => {
   };
 
   return (
-    <section className="flex h-screen w-screen">
+    <aside className="flex min-h-screen w-screen">
       <div
         className={`${
           open ? 'w-72' : 'w-20'
-        } absolute md:relative bg-gradient-to-br from-cyan-700 to-cyan-600 h-screen p-4 pt-8 md:opacity-100 md:transform-none sidebar-transition ${
+        } absolute md:relative bg-gradient-to-br from-teal-200	 to-teal-700 p-4 pt-8 md:opacity-100 md:transform-none sidebar-transition ${
           mobileOpen ? 'opacity-100 transform-none' : 'opacity-0 -translate-x-full'
         }`}
       >
         <button
-          className={`md:block hidden absolute cursor-pointer -right-2 top-9 bg-white border-cyan-600
+          className={`md:block hidden absolute cursor-pointer -right-2 top-9 bg-white border-teal-600
                     border-2 rounded-full duration-300 ${!open && 'rotate-180'}`}
           onClick={() => setOpen(!open)}
           title="expand and collabse sidebar"
@@ -54,7 +54,7 @@ const Sidebar = ({ links, children }) => {
                   >
                     <div className="flex">
                       <FaUsers className="m-1" />
-                      <span className={`${!open && 'hidden'} origin-left duration-200 ml-3`}>
+                      <span className={`${!open && 'hidden'} text-2xl origin-left duration-200 ml-3`}>
                         {link.label}
                       </span>
                     </div>
@@ -67,8 +67,8 @@ const Sidebar = ({ links, children }) => {
                             to={sublink.path}
                             className={`${
                               sublink.gap ? 'mt-4' : 'mt-2'
-                            } flex rounded-md p-2 m-1 cursor-pointer hover:bg-sky-600 text-gray-100 text-sm items-center ${
-                              window.location.pathname === sublink.path && 'bg-cyan-800'
+                            }  flex rounded-md p-2 m-1 cursor-pointer hover:bg-teal-600 text-gray-100 text-sm items-center ${
+                              window.location.pathname === sublink.path && 'bg-teal-800'
                             }`}
                           >
                             <div className="flex">
@@ -87,12 +87,12 @@ const Sidebar = ({ links, children }) => {
                   className={`${
                     link.gap ? 'mt-4' : 'mt-2'
                   } flex rounded-md p-2 m-1 cursor-pointer hover:bg-sky-600 text-gray-100 text-sm items-center ${
-                    window.location.pathname === link.path && 'bg-cyan-800'
+                    window.location.pathname === link.path && 'bg-teal-800'
                   }`}
                 >
                   <div className="flex">
                     <link.icon className="m-1" />
-                    <span className={`${!open && 'hidden'} origin-left duration-200 ml-3`}>
+                    <span className={`${!open && 'hidden'} text-lg origin-left duration-200 ml-3`}>
                       {link.label}
                     </span>
                   </div>
@@ -111,7 +111,7 @@ const Sidebar = ({ links, children }) => {
         <GiHamburgerMenu />
       </button>
       <div className="w-full p-5 md:p-7 bg-slate-100">{children}</div>
-    </section>
+    </aside>
   );
 };
 
