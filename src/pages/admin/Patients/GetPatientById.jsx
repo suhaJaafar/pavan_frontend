@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../../../api/api';
 import Layout from '../../../layout/Layout';
-
+import BgPatient from '../../../assets/bg_patients.jpg';
 export default function GetPatientById() {
   const { id } = useParams();
   const [patient, setPatient] = useState(null);
@@ -11,7 +11,12 @@ export default function GetPatientById() {
     api
       .get(`/patient/${id}`)
       .then((res) => {
-        setPatient(res.data);
+        // Replace "null" strings with actual null values
+        const cleanedPatient = Object.entries(res.data).reduce((acc, [key, value]) => {
+          acc[key] = value === 'null' ? null : value;
+          return acc;
+        }, {});
+        setPatient(cleanedPatient);
       })
       .catch((error) => {
         console.error('Error fetching user details:', error);
@@ -19,31 +24,123 @@ export default function GetPatientById() {
   }, [id]);
 
   if (!patient) {
-    return <div>Loading patient details...</div>;
+    return
+        <div>Loading patient details...</div>;
   }
 
   return (
     <Layout>
-      <div>
-        <h2>Patient Details</h2>
-        <p>Name: {patient.name}</p>
-        <p>Age: {patient.age}</p>
-        <p>Address: {patient.address}</p>
-        <p>Health Status: {patient.health_status}</p>
-        <p>Visits One: {patient.visits_one}</p>
-        <p>Visits Two: {patient.visits_two}</p>
-        <p>Visits Three: {patient.visits_three}</p>
-        <p>Visits Four: {patient.visits_four}</p>
-        <p>Price: {patient.price}</p>
-        <p>Doctor Name: {patient.doctor_name}</p>
-        <p>Note: {patient.note}</p>
-        {patient.x_rays && (
-          <div>
-            <h3>X-rays</h3>
-            <img src={`http://localhost:8000/storage/x_rays/image/${patient.x_rays}`} alt="X-rays" />
+        <div className="flex justify-center items-center">
+      <div className="w-full bg-gray-50 grid gap-5 rounded-lg shadow-lg ">
+      <div className="grid grid-cols-3 justify-items-center h-36 w-full rounded-t-lg bg-cover" style={{ backgroundImage: `url(${BgPatient})` }}>
+        <div className='pt-20'>
+            {patient.name && (
+              <div>
+                <p className="font-bold">Name:<span className=' pl-2 font-normal'>{patient.name}</span></p>
+              </div>
+            )}
+            {patient.age && (
+                        <div>
+                        <p className="font-bold">Age:<span className=' pl-2 font-normal'>{patient.age}</span></p>
+                        </div>
+                    )}
+
+            </div>
+            <div>
+            <h1 className=" text-gray-800 pt-14 block font-sans text-3xl font-semibold leading-tight tracking-normalantialiased ">
+                Patient Details
+                </h1>
+                </div>
+                <div  className='pt-20'>
+                    {patient.created_at && (
+                        <div>
+                            <p className="font-bold">Date:<span className=' pl-2 font-normal'>{patient.created_at}</span></p>
+                        </div>
+                    )}
+            {patient.doctor_name && (
+              <div className=''>
+                <p className="font-bold">Doctor Name:<span className=' pl-2 font-normal'>{patient.doctor_name}</span></p>
+              </div>
+            )}
+
+                </div>
+        </div>
+
+        <div className="">
+
+          <div className="grid grid-cols-3 gap-2 mb-4 p-2">
+
+            {/* col 1 */}
+<div> {patient.address && (
+                        <div>
+                            <p className="font-bold">Address:<span className=' pl-2 font-normal'>{patient.address}</span></p>
+                        </div>
+                    )}
+
+            {patient.health_status && (
+              <div>
+                <p className="font-bold">Health Status:<span className=' pl-2 font-normal'>{patient.health_status}</span></p>
+              </div>
+            )}
+
+
+          {patient.price && (
+            <p>
+              <span className="font-bold">Price:</span> {patient.price}
+            </p>
+          )}
+          {patient.note && (
+            <div className="flex">
+              <span className="font-bold mr-2">Note:</span>
+              <p type="text-area" className="p-4 bg-white rounded-md">{patient.note}</p>
+            </div>
+          )}
+          </div>
+
+
+          {/* col 2 */}
+<div>{patient.visits_one && (
+              <div>
+                <p className="font-bold">Visits One:<span className=' pl-2 font-normal'>{patient.visits_one}</span></p>
+              </div>
+            )}
+            {/* {patient.visits_two && ( */}
+              <div>
+                <p className="font-bold">Visits Two:<span className=' pl-2 font-normal'>{patient.visits_two}</span></p>
+              </div>
+            {/* )} */}
+            {/* {patient.visits_three && ( */}
+              <div>
+                <p className="font-bold">Visits Three:<span className=' pl-2 font-normal'>{patient.visits_three}</span></p>
+              </div>
+             {/* )} */}
+            {/* {patient.visits_four && ( */}
+              <div>
+                <p className="font-bold">Visits Four:<span className=' pl-2 font-normal'>{patient.visits_four}</span></p>
+              </div>
+            {/* )} */}</div>
+
+            {/* col 3 */}
+<div>{patient.x_rays && (
+            <div className='flex'>
+              <img
+                className="w-52 h-auto rounded-md "
+                src={`http://127.0.0.1:8000/storage/x_rays/image/${patient.x_rays}`}
+                alt="X-rays"
+              />
+            </div>
+          )}
 
           </div>
-        )}
+
+
+
+
+
+                    </div>
+
+        </div>
+      </div>
       </div>
     </Layout>
   );

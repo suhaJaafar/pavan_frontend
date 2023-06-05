@@ -9,6 +9,9 @@ import { Link, useNavigate } from 'react-router-dom';
 export default function Expenses() {
   const [expenses, setExpenses] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const patientsPerPage = 10;
+  const [filteredExpenses, setFilteredExpenses] = useState([]);
 
   const handleDeleteExpense = (expenseId) => {
     const confirmDelete = window.confirm('Are you sure you want to delete this expense?');
@@ -28,6 +31,10 @@ export default function Expenses() {
   };
   const columns = [
     {
+        Header: 'ID',
+        accessor: 'id',
+      },
+    {
       Header: 'Medicinal Materials',
       accessor: 'medicinal_materials',
     },
@@ -45,10 +52,10 @@ export default function Expenses() {
     },
     {
         Header: 'Actions',
-        accessor: 'id',
-        Cell: ({ value }) => (
+        accessor: 'actions',
+        Cell: ({ row }) => (
           <div className="flex gap-2">
-            <Link to={`/expenses/${value}`}  className="bg-teal-600 hover:bg-teal-700 text-white py-2 px-2 rounded">
+            <Link to={`/expenses/${row.original.id}`}  className="bg-teal-600 hover:bg-teal-700 text-white py-2 px-2 rounded">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -56,7 +63,7 @@ export default function Expenses() {
             </Link>
 
             <Link
-              to={`/expenses/${value}/edit`} // Replace with the appropriate edit user route
+              to={`/expenses/${row.original.id}/edit`} // Replace with the appropriate edit user route
               className=" bg-gray-500 hover:bg-gray-600 text-white  py-2 px-2  rounded"
             >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -64,7 +71,7 @@ export default function Expenses() {
             </svg>
             </Link>
             <button
-              onClick={() => handleDeleteExpense(value)}
+              onClick={() => handleDeleteExpense(row.original.id)}
               className="bg-red-500 hover:bg-red-600 text-white py-2 px-2 rounded"
             >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -76,27 +83,54 @@ export default function Expenses() {
       },
   ];
 
-  const fetchExpenses = async () => {
-    try {
-      const response = await api.get('/expenses');
-      setExpenses(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
 
   useEffect(() => {
-    fetchExpenses();
-  }, []);
+    api
+      .get(`/expenses?page=${currentPage}`)
+      .then((res) => {
+        setExpenses(res.data);
+      })
+      .catch((error) => {
+        console.error('Error fetching expenses:', error);
+      });
+  }, [currentPage]);
+
+  useEffect(() => {
+    const filtered = expenses.filter((expense) => {
+      const searchString = searchQuery.toLowerCase();
+      const medicinalMaterials = expense.medicinal_materials.toLowerCase();
+      const count = expense.count.toString();
+      const buyPrice = expense.buy_price.toString();
+
+      return (
+        medicinalMaterials.includes(searchString) ||
+        count.includes(searchString) ||
+        buyPrice.includes(searchString)
+      );
+    });
+
+    setFilteredExpenses(filtered);
+  }, [expenses, searchQuery]);
+
+
 
   const handleSearchChange = (e) => {
-    setSearchQuery(e.target.value);
+    setSearchQuery(e.target.value.toLowerCase());
+};
+
+  const [page, setPage] = useState(0);
+  const pageSize = 10;
+  const totalPages = Math.ceil(filteredExpenses.length / pageSize);
+  const paginatedPatients = filteredExpenses.slice(page * pageSize, (page + 1) * pageSize);
+
+  const handleNextPage = () => {
+    setPage((prevPage) => prevPage + 1);
   };
 
-  const filteredExpenses = expenses.filter((expense) =>
-    expense.medicinal_materials.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
+  const handlePrevPage = () => {
+    setPage((prevPage) => prevPage - 1);
+  };
   return (
     <Layout>
       <div className="my-4 mx-auto max-w-2xl">
@@ -122,7 +156,27 @@ export default function Expenses() {
           type="text"
           placeholder="Search"
         />
-        <Table columns={columns} data={filteredExpenses} />
+<Table columns={columns} data={filteredExpenses} />
+        <div className="flex justify-between mt-4">
+          <button
+            onClick={handlePrevPage}
+            disabled={page === 0}
+            className={`${
+              page === 0 ? 'bg-gray-300 cursor-not-allowed' : 'bg-gray-500 hover:bg-gray-600'
+            } text-white py-2 px-2 rounded`}
+          >
+            Previous Page
+          </button>
+          <button
+            onClick={handleNextPage}
+            disabled={page === totalPages - 1}
+            className={`${
+              page === totalPages - 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-gray-500 hover:bg-gray-600'
+            } text-white py-2 px-2 rounded`}
+          >
+            Next Page
+          </button>
+        </div>
       </div>
     </Layout>
   );

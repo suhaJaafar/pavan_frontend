@@ -4,22 +4,23 @@ import Layout from '../../../layout/Layout';
 import api from '../../../api/api';
 import Table from '../../../component/Table';
 import Input from '../../../component/Input';
-import { EyeIcon, PlusCircleIcon ,PencilAltIcon, TrashIcon} from '@heroicons/react/solid';
 
 export default function Users() {
   const [users, setUsers] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+  const patientsPerPage = 10;
 
   useEffect(() => {
     api
-      .get('/users')
+      .get(`/users?page=${currentPage}`)
       .then((res) => {
         setUsers(res.data);
       })
       .catch((error) => {
         console.error('Error fetching users:', error);
       });
-  }, []);
+  }, [currentPage]);
 
   const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
@@ -42,29 +43,25 @@ export default function Users() {
     }
   };
 
-  const handleEditUser = (userId) => {
-    navigate(`/users/${userId}/edit`);
-  };
 
-  const navigate = useNavigate(); // Get the navigate function from useNavigate
+  const filteredUsers = users.filter((user) => {
+    const { name = '', email = '', role_name } = user;
+    const roleName = role_name && role_name ? role_name : ''; // Check if role and role.name are defined before accessing them
+    return (
+      name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      email.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (roleName && roleName.toLowerCase().includes(searchQuery.toLowerCase()))
+    );
+  });
 
-  const handleViewUser = (userId) => {
-    navigate(`/user/${userId}`);
-  };
 
-  const filteredUsers = users.filter(
-    (user) =>
-      user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      user.role.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+
 
   const columns = React.useMemo(
     () => [
       {
         Header: 'ID',
-        accessor: 'username',
-        Cell: ({ row }) => <span>{row.index + 1}</span>, // Use row.index to display the incrementing count
+        accessor: 'id',
       },
       {
         Header: 'Name',
@@ -80,10 +77,10 @@ export default function Users() {
       },
       {
         Header: 'Actions',
-        accessor: 'id',
-        Cell: ({ value }) => (
+        accessor: 'actions',
+        Cell: ({ row }) => (
           <div className="flex gap-2">
-            <Link to={`/user/${value}`}  className="bg-teal-600 hover:bg-teal-700 text-white py-2 px-2 rounded">
+            <Link to={`/user/${row.original.id}`}  className="bg-teal-600 hover:bg-teal-700 text-white py-2 px-2 rounded">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
                 <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -91,7 +88,7 @@ export default function Users() {
             </Link>
 
             <Link
-              to={`/users/${value}/edit`}
+              to={`/users/${row.original.id}/edit`}
               className=" bg-gray-500 hover:bg-gray-600 text-white  py-2 px-2  rounded"
             >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -101,7 +98,7 @@ export default function Users() {
 
             </Link>
             <button
-              onClick={() => handleDeleteUser(value)}
+              onClick={() => handleDeleteUser(row.original.id)}
               className="bg-red-500 hover:bg-red-600 text-white py-2 px-2 rounded"
             >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
@@ -115,6 +112,18 @@ export default function Users() {
     ],
     []
   );
+  const [page, setPage] = useState(0);
+  const pageSize = 10;
+  const totalPages = Math.ceil(filteredUsers.length / pageSize);
+  const paginatedPatients = filteredUsers.slice(page * pageSize, (page + 1) * pageSize);
+
+  const handleNextPage = () => {
+    setPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePrevPage = () => {
+    setPage((prevPage) => prevPage - 1);
+  };
 
   return (
     <Layout>
@@ -142,7 +151,27 @@ export default function Users() {
           type="text"
           placeholder="Search"
         />
-        <Table columns={columns} data={filteredUsers} />
+        <Table columns={columns} data={paginatedPatients} />
+        <div className="flex justify-between mt-4">
+          <button
+            onClick={handlePrevPage}
+            disabled={page === 0}
+            className={`${
+              page === 0 ? 'bg-gray-300 cursor-not-allowed' : 'bg-gray-500 hover:bg-gray-600'
+            } text-white py-2 px-2 rounded`}
+          >
+            Previous Page
+          </button>
+          <button
+            onClick={handleNextPage}
+            disabled={page === totalPages - 1}
+            className={`${
+              page === totalPages - 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-gray-500 hover:bg-gray-600'
+            } text-white py-2 px-2 rounded`}
+          >
+            Next Page
+          </button>
+        </div>
       </div>
     </Layout>
   );

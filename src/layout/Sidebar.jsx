@@ -6,7 +6,7 @@ import { FaUsers } from 'react-icons/fa';
 import { CgArrowRightO } from 'react-icons/cg';
 import { GiHamburgerMenu } from 'react-icons/gi';
 
-const Sidebar = ({ links, children }) => {
+const Sidebar = ({ links, children , id,logout }) => {
   const [open, setOpen] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -17,11 +17,11 @@ const Sidebar = ({ links, children }) => {
   };
 
   return (
-    <aside className="flex min-h-screen w-screen">
+    <aside className=" flex min-h-screen w-screen">
       <div
         className={`${
           open ? 'w-72' : 'w-20'
-        } absolute md:relative bg-gradient-to-br from-teal-200	 to-teal-700 p-4 pt-8 md:opacity-100 md:transform-none sidebar-transition ${
+        } fixed md:relative bg-gradient-to-br from-teal-200	 to-teal-700 p-4 pt-8 md:opacity-100 md:transform-none sidebar-transition ${
           mobileOpen ? 'opacity-100 transform-none' : 'opacity-0 -translate-x-full'
         }`}
       >
@@ -41,7 +41,7 @@ const Sidebar = ({ links, children }) => {
             style={{ color: '#ffffff' }}
           />
         </div>
-        <ul className="pt-4">
+        <ul className=" fixed pt-4">
           {links.map((link, index) => (
             <li key={index}>
               {link.submenu ? (

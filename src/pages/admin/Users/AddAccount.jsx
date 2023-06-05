@@ -75,13 +75,17 @@ export default function AddAccount() {
                     value={roleName}
                     onChange={(e) => setRoleName(e.target.value)}
                     required
+                    className="w-auto px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+
                     >
                     <option value="">Select Role</option>
                     <option value="admin">Admin</option>
                     <option value="doctor">Doctor</option>
                     <option value="secretary">Secretary</option>
         </select>
-          <button type="submit">Add Account</button>
+        <br></br>
+        <br></br>
+          <button className=" bg-gradient-to-r from-teal-200 to-red-700 border-cyan-600 px-4 py-2 rounded-md text-white" type="submit">Add Account</button>
         </form>
       </div>
           </Layout>

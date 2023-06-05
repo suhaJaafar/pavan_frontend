@@ -78,7 +78,7 @@ export default function AddExpenses() {
             id="note"
             name="note"
             type="string"
-            isRequired={true}
+            isRequired={false}
             placeholder="Note..."
           />
 

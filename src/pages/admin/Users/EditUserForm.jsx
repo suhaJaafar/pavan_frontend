@@ -121,7 +121,7 @@ export default function EditUserForm() {
               value={user.role}
               onChange={handleRoleChange}
               required
-              className="w-32 px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-auto px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">Select Role</option>
               {roleOptions.map((option) => (
