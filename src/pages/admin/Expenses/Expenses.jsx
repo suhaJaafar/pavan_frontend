@@ -46,10 +46,10 @@ export default function Expenses() {
       Header: 'Buy Price',
       accessor: 'buy_price',
     },
-    {
-      Header: 'Note',
-      accessor: 'note',
-    },
+    // {
+    //   Header: 'Note',
+    //   accessor: 'note',
+    // },
     {
         Header: 'Actions',
         accessor: 'actions',
@@ -133,7 +133,7 @@ export default function Expenses() {
   };
   return (
     <Layout>
-      <div className="my-4 mx-auto max-w-2xl">
+      <div className="my-4 mx-auto max-w-4xl">
       <div className="flex justify-end mb-4">
           <Link
             to="/add-expense"

@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../../api/api';
 import Layout from '../../../layout/Layout';
 import Input from '../../../component/Input';
-import axios from 'axios';
 
 export default function EditPatientForm() {
   const { id } = useParams();

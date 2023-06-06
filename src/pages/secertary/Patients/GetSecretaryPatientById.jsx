@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import api from '../../../api/api';
 import Layout from '../../../layout/Layout';
 import BgPatient from '../../../assets/bg_patients.jpg';
-export default function GetPatientById() {
+export default function GetSecretaryPatientById() {
   const { id } = useParams();
   const [patient, setPatient] = useState(null);
 

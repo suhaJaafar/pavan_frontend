@@ -55,14 +55,17 @@ const Layout = ({ children }) => {
         return [
           { label: 'Dashboard', path: '/doctor-dashboard', icon: AiOutlineHome, gap: false },
           { label: 'Patients', path: '/patient-list', icon: AiOutlineHome, gap: false },
-          { label: 'AllPatients', path: '/patients', icon: AiOutlineHome, gap: false },
-          { label: 'Account', path: '/account', icon: AiFillSetting, gap: false },
-          { label: 'Profile', path: '/viewaccount', icon: AiFillSetting, gap: false },
+        //   { label: 'AllPatients', path: '/patients', icon: AiOutlineHome, gap: false },
+          { label: 'My Account', path: '/account', icon: AiFillSetting, gap: false },
+        //   { label: 'Profile', path: '/viewaccount', icon: AiFillSetting, gap: false },
           { label: 'Logout', path: '/', icon: AiFillSetting, gap: false, onClick: logout },
         ];
       case 'secretary':
         return [
           { label: 'Dashboard', path: '/secretary-dashboard', icon: AiOutlineHome, gap: false },
+          { label: 'Patients', path: '/secretary-patients', icon: FaUsers, gap: false },
+          { label: 'My Account', path: '/viewaccount', icon: AiFillSetting, gap: false },
+
           { label: 'Logout', path: '/', icon: AiFillSetting, gap: false, onClick: logout },
         ];
       default:

@@ -11,7 +11,7 @@ const PatientsList = () => {
   useEffect(() => {
     const fetchPatients = async () => {
       try {
-        const response = await api.get('/patients/doctors'); // Update the endpoint as per your API
+        const response = await api.get('/patients/doctors');
         setPatients(response.data);
         setLoading(false);
       } catch (error) {
@@ -25,7 +25,7 @@ const PatientsList = () => {
   }, []);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return <Layout><p>Loading...</p></Layout>;
   }
 
   if (error) {
@@ -33,17 +33,18 @@ const PatientsList = () => {
   }
 
   const columns = [
-    { Header: 'ID', accessor: 'id' },
+    { Header: 'Id', accessor: 'id' },
     { Header: 'Name', accessor: 'name' },
+    { Header: 'Price', accessor: 'price' },
+    { Header: 'Status', accessor: 'health_status' },
   ];
 
   return (
     <Layout>
-      <div className="text-center">
+      <div className="my-4 mx-auto max-w-2xl">
         <h1 className="serviceMainTitle">MY PATIENTS</h1>
-        <div className="bottom"></div>
-        <div>
-          <Table columns={columns} data={patients} />
+        <div className="">
+          <Table className="w-full" columns={columns} data={patients} />
         </div>
       </div>
     </Layout>

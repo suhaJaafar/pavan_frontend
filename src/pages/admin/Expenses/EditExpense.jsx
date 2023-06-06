@@ -99,11 +99,11 @@ export default function EditExpense() {
   return (
     <Layout>
       <div>
-        <h1 className="font-bold text-2xl">Edit User</h1>
+        <h1 className="font-bold text-2xl">Edit Expense</h1>
         <br></br>
         <form onSubmit={handleSubmit}>
           <label>
-            <span className=" font-bold">Name:</span>
+            <span className=" font-bold">Medicinal materials:</span>
             <Input
               handleChange={handleMedicinalMaterialsChange}
               value={expense.medicinal_materials}
@@ -119,7 +119,7 @@ export default function EditExpense() {
           </label>
           <br />
           <label>
-            <span className=" font-bold">Email:</span>
+            <span className=" font-bold">Count:</span>
 
             <Input
               handleChange={handleCountChange}
@@ -137,7 +137,7 @@ export default function EditExpense() {
           <br />
 
           <label>
-            <span className=" font-bold">Email:</span>
+            <span className=" font-bold">Buy price:</span>
 
             <Input
               handleChange={handleBuyPriceChange}
@@ -154,7 +154,7 @@ export default function EditExpense() {
           </label>
           <br />
           <label>
-            <span className=" font-bold">Email:</span>
+            <span className=" font-bold">Note:</span>
 
             <Input
               handleChange={handleNoteChange}
@@ -173,7 +173,7 @@ export default function EditExpense() {
 
 
           <br />
-          <button className=" bg-cyan-500 border-cyan-600 px-4 py-2 rounded-md text-white" type="submit">Update User</button>
+          <button className=" bg-cyan-500 border-cyan-600 px-4 py-2 rounded-md text-white" type="submit">Update Expense</button>
         </form>
       </div>
     </Layout>

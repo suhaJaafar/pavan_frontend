@@ -83,6 +83,7 @@ const Sidebar = ({ links, children , id,logout }) => {
                 </>
               ) : (
                 <NavLink
+                onClick={()=>{if(link.label==='Logout')logout()}}
                   to={link.path}
                   className={`${
                     link.gap ? 'mt-4' : 'mt-2'

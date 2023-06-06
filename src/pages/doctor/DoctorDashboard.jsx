@@ -2,6 +2,7 @@ import Layout from "../../layout/Layout";
 
 export default function DoctorDashboard()
 {
+    
     return (
         <Layout>
             <div className="bg-white rounded-lg shadow-lg p-6">

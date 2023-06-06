@@ -38,7 +38,7 @@ Expense Details</h1></div>
       <p><span className=' font-bold'>medicinal materials:</span> {expense.medicinal_materials}</p>
       <p> <span className=' font-bold'>count:</span>{expense.count}</p>
       <p><span className=' font-bold'>buy price:</span> {expense.buy_price}</p>
-      <p> <span className=' font-bold'>note:</span>{expense.note}</p>
+      <p className=''> <span className=' font-bold'>note:</span>{expense.note}</p>
       </div>
       </div>
       </div>
