@@ -38,7 +38,7 @@ export default function AddExpenses() {
 
     return (
         <Layout>
-      <div>
+      <div  className='sm:m-2 mt-20'>
         <h2>Add Expense</h2>
         <form onSubmit={handleSubmit}>
           <Input
@@ -82,7 +82,7 @@ export default function AddExpenses() {
             placeholder="Note..."
           />
 
-          <button type="submit">Add Expense</button>
+          <button className="bg-teal-500 border-teal-600 sm:px-4 px-2 sm:py-2 py-1  sm:text-lg text-sm mb-2 rounded-md text-white" type="submit">Add Expense</button>
         </form>
       </div>
           </Layout>

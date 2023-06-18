@@ -79,13 +79,13 @@ const EditAccount = () => {
   };
 
   return (
-    <Layout className="justify-items-center">
-      <div>
-        <h1 className="font-bold text-2xl">Edit Profile</h1>
+    <Layout>
+      <div  className='sm:m-2 mt-20'>
+        <h1 className="font-bold sm:text-xl text-base">Edit Profile</h1>
         <br />
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <label>
-            <span className="font-bold">Name:</span>
+            <span className="font-bold sm:text-base text-sm">Name:</span>
             <Input
               handleChange={handleChange}
               value={user.name}
@@ -98,7 +98,7 @@ const EditAccount = () => {
             />
           </label>
           <label>
-            <span className="font-bold">Email:</span>
+            <span className="font-bold sm:text-base text-sm">Email:</span>
             <Input
               handleChange={handleChange}
               value={user.email}
@@ -110,7 +110,9 @@ const EditAccount = () => {
               placeholder="Enter email"
             />
           </label>
-          <Input
+          <label>
+          <span className="font-bold sm:text-base text-sm">Profile Image:</span>
+        <Input
             handleChange={handleImageChange}
             labelText="Profile Image"
             id="profile_img"
@@ -119,8 +121,10 @@ const EditAccount = () => {
             isRequired={false}
             placeholder="Profile image"
           />
+          </label>
+
           <button
-            className="bg-cyan-500 border-cyan-600 px-4 py-2 rounded-md text-white"
+            className="bg-teal-500 mb-2 border-teal-600 sm:px-4 px-2 sm:py-2 py-2 sm:text-lg text-sm rounded-md text-white"
             type="submit"
           >
             Update Profile

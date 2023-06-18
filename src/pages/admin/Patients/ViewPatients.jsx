@@ -71,17 +71,22 @@ export default function ViewPatients() {
         accessor: 'age',
       },
       {
-        Header: 'Status',
+        Header: 'Health Status',
         accessor: 'health_status',
+        Cell: ({ value }) => (
+          <p className="text-sm sm:text-xl">
+            {truncateHealthStatus(value)}
+          </p>
+        ),
       },
       {
             Header: 'Actions',
-            accessor: 'actions', // Assign a unique accessor value for the Actions column
+            accessor: 'actions',
             Cell: ({ row }) => (
               <div className="flex gap-2">
             <Link
               to={`/patient/${row.original.id}`}
-              className="bg-teal-600 hover:bg-teal-700 text-white py-2 px-2 rounded"
+              className="bg-yellow-700 hover:bg-yellow-800 text-white   sm:py-2 sm:px-2 px-1 py-1  rounded"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -106,7 +111,7 @@ export default function ViewPatients() {
 
             <Link
               to={`/patient/${row.original.id}/edit`}
-              className=" bg-gray-500 hover:bg-gray-600 text-white py-2 px-2  rounded"
+              className=" bg-gray-500 hover:bg-gray-600 text-white   sm:py-2 sm:px-2 px-1 py-1   rounded"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +130,7 @@ export default function ViewPatients() {
             </Link>
             <button
               onClick={() => handleDeletePatient(row.original.id)}
-              className="bg-red-500 hover:bg-red-600 text-white py-2 px-2 rounded"
+              className="bg-red-500 hover:bg-red-600 text-white   sm:py-2 sm:px-2 px-1 py-1  rounded"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -162,13 +167,33 @@ export default function ViewPatients() {
     setPage((prevPage) => prevPage - 1);
   };
 
+  // Function to truncate the health status based on device type
+  const truncateHealthStatus = (status) => {
+    const words = status.split(' ');
+
+    if (words.length > 5) {
+      if (isMobileDevice()) {
+        return words.slice(0, 2).join(' ') + '...';
+      } else {
+        return words.slice(0, 5).join(' ') + '...';
+      }
+    }
+
+    return status;
+  };
+
+  // Function to check if the device is a mobile device
+  const isMobileDevice = () => {
+    return /Mobi|Android/i.test(navigator.userAgent);
+  };
+
   return (
     <Layout>
       <div className="my-4 mx-auto max-w-2xl">
         <div className="flex justify-end mb-4">
           <Link
             to="/add-patient"
-            className=" text-lg flex items-center gap-2 bg-teal-300 hover:bg-teal-400 text-white py-2 px-4 rounded"
+            className=" sm:text-lg text-base sm:mt-0 mt-12 flex items-center gap-2 bg-teal-300 hover:bg-teal-400 text-white sm:py-2 py-1 sm:px-4 px-1 mr-2 rounded"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +201,7 @@ export default function ViewPatients() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className=" h-8 w-8"
+              className=" sm:h-8 h-4 sm:w-8 w-4"
             >
               <path
                 strokeLinecap="round"
@@ -187,7 +212,7 @@ export default function ViewPatients() {
             Add New patient
           </Link>
         </div>
-        <h2 className="text-xl font-bold mb-4">patient List</h2>
+        <h2 className="sm:text-xl text-base font-bold mb-4">patient List</h2>
         <Input
           handleChange={handleSearchChange}
           value={searchQuery}
@@ -205,7 +230,7 @@ export default function ViewPatients() {
             disabled={page === 0}
             className={`${
               page === 0 ? 'bg-gray-300 cursor-not-allowed' : 'bg-gray-500 hover:bg-gray-600'
-            } text-white py-2 px-2 rounded`}
+            } text-white sm:py-2 py-1 sm:px-2 px-1  sm:text-base text-xs rounded`}
           >
             Previous Page
           </button>
@@ -214,7 +239,7 @@ export default function ViewPatients() {
             disabled={page === totalPages - 1}
             className={`${
               page === totalPages - 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-gray-500 hover:bg-gray-600'
-            } text-white py-2 px-2 rounded`}
+            } text-white sm:py-2 py-1 sm:px-2 px-1  sm:text-base text-xs rounded`}
           >
             Next Page
           </button>

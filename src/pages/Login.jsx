@@ -80,7 +80,7 @@ export default function Login() {
                     <form className="mt-8 space-y-6 mb-20" onSubmit={handleSubmit}>
                         <div>
                             <img src={logo} alt="logo" className="mx-auto w-12"/>
-                            <p className='text-center text-blue-400 mt-1 mb-16'>Pavan Clinic</p>
+                            <p className='text-center text-teal-400 mt-1 mb-16'>Pavan Clinic</p>
                         </div>
                         <div className="-space-y-px">
                             {
@@ -102,7 +102,7 @@ export default function Login() {
                         </div>
                         <button
                             type="submit"
-                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-teal-400 hover:bg-teal-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                             disabled={isLoading}
                         >
                             {isLoading ? 'Loading...' : 'Submit'}

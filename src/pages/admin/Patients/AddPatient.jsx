@@ -310,13 +310,12 @@ export default function AddPatientForm() {
     }
   };
   return (
-    <Layout className="justify-items-center">
-      <div>
-        <h1 className="font-bold text-2xl">Add Patient</h1>
+    <Layout className="">
+      <div  className="sm:m-2 mt-20">
+        <h1 className=" font-bold sm:text-2xl text-base">Add Patient</h1>
         <br />
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <label>
-            <span className="font-bold">Name:</span>
             <Input
               handleChange={handleChange}
               value={patient.name}
@@ -426,7 +425,7 @@ export default function AddPatientForm() {
             placeholder="Price"
           />
 <label>
-            <span className="font-bold">X-rays Image:</span>
+            <span className="font-bold sm:text-lg  text-xs">X-rays Image:</span>
             <Input
               handleChange={handleImageChange}
               labelText="X-rays Image"
@@ -458,7 +457,7 @@ export default function AddPatientForm() {
             isRequired={false}
             placeholder="Notes"
           />
-<button  className=" bg-cyan-500 border-cyan-600 px-4 py-2 rounded-md text-white" type="submit">Add Patient</button>
+<button  className=" bg-teal-500 border-teal-600 sm:px-4 px-2 sm:py-2 py-1  sm:text-lg text-sm mb-2 rounded-md text-white" type="submit">Add Patient</button>
          </form>
        </div>
           </Layout>

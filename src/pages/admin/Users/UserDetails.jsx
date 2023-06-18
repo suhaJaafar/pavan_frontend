@@ -91,15 +91,14 @@ export default function UserDetails() {
   }, [id]);
 
   if (!user) {
-    return <div>Loading user details...</div>;
+    return <Layout> <div className='pl-4'>Loading...</div></Layout>;
   }
 
   return (
     <Layout>
-<div className="items-center flex-col w-full h-full p-[16px] bg-cover">
+<div className="items-center flex-col w-full h-full p-[16px] bg-cover  sm:mt-0 mt-20">
 <div
-        className="relative mt-1 flex h-32 w-full justify-center rounded-xl bg-cover"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
+        className="relative mt-1 flex h-32 w-full justify-center rounded-xl bg-cover bg-gradient-to-br from-yellow-200 from-5% via-teal-300 via-50% to-teal-400 to-80% "
         >
         <div className="dark:!border-navy-700 absolute -bottom-12 flex h-[87px] w-[87px] items-center justify-center rounded-full border-[4px] border-white bg-gray-300">
         {user.profile_img ? (

@@ -21,15 +21,15 @@ export default function ViewAccount() {
   }, []);
 
   if (!user) {
-    return <div>Loading...</div>;
+    return <Layout> <div className='pl-4'>Loading...</div></Layout>;
   }
 
   return (
     <Layout>
     <div  className="items-center flex-col w-full h-auto  bg-cover bg-white rounded-lg">
     <div
-        className="relative mt-1 flex h-32 w-full justify-center rounded-lg bg-cover"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
+        className="relative mt-1 flex h-32 w-full justify-center rounded-lg bg-cover bg-gradient-to-br from-yellow-200 from-5% via-teal-300 via-50% to-teal-400 to-80% "
+
         >
         <div className="dark:!border-navy-700 absolute -bottom-12 flex h-[100px] w-[100px] items-center justify-center rounded-full border-[4px] border-white bg-gray-300">
         {user.profile_img ? (

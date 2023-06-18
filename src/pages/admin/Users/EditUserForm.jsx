@@ -77,7 +77,7 @@ export default function EditUserForm() {
 
   return (
     <Layout>
-      <div>
+      <div className='m-2'>
         <h1 className="font-bold text-2xl">Edit User</h1>
         <br />
         <form onSubmit={handleSubmit}>
@@ -121,18 +121,18 @@ export default function EditUserForm() {
               value={user.role}
               onChange={handleRoleChange}
               required
-              className="w-auto px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="sm:w-auto w-30 sm:px-3 px-2 sm:py-2 py-1 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">Select Role</option>
               {roleOptions.map((option) => (
-                <option key={option.value} value={option.value}>
+                <option  className='text-xs sm:text-base sm:px-4 px-1' key={option.value} value={option.value}>
                   {option.label}
                 </option>
               ))}
             </select>
           </label>
           <br />
-          <button className="bg-cyan-500 border-cyan-600 px-4 py-2 rounded-md text-white" type="submit">
+          <button className="bg-teal-500 border-teal-600 sm:px-4 px-2 sm:py-2 py-1 rounded-md text-white" type="submit">
             Update User
           </button>
         </form>

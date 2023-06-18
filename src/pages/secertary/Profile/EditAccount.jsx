@@ -120,7 +120,7 @@ const EditAccount = () => {
             placeholder="Profile image"
           />
           <button
-            className="bg-cyan-500 border-cyan-600 px-4 py-2 rounded-md text-white"
+            className="bg-teal-500 border-teal-600 px-4 py-2 rounded-md text-white"
             type="submit"
           >
             Update Profile

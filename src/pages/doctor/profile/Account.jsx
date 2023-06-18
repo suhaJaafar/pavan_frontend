@@ -29,16 +29,16 @@ function Account() {
       };
 
     if (!doctor) {
-        return <Layout><p>Loading...</p></Layout>;
+        return <Layout><p className='pl-4'>Loading...</p></Layout>;
       }
 
     return (
-                <Layout>
+                <Layout className=''>
 
-<div  className="items-center flex-col w-full h-auto  bg-cover bg-white rounded-lg">
+<div  className=" sm:m-4 m-4 ms:mt-0 mt-20  items-center flex-col h-auto  bg-cover bg-white rounded-lg">
     <div
-        className="relative mt-1 flex h-32 w-full justify-center rounded-lg bg-cover"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
+        className="relative mt-1 flex h-32 w-full justify-center rounded-lg bg-cover bg-gradient-to-br from-yellow-200 from-5% via-teal-300 via-50% to-teal-400 to-80% "
+
         >
         <div className="dark:!border-navy-700 absolute -bottom-12 flex h-[100px] w-[100px] items-center justify-center rounded-full border-[4px] border-white bg-gray-300">
         {doctor.profile_img ? (
@@ -65,14 +65,14 @@ function Account() {
           )}
         </div>
       </div>
-      <div className='p-4 text-lg grid gap-3'>
+      <div className='sm:p-4 pt-16 pl-2 pb-2 sm:text-lg text-base grid gap-3'>
         <p><span className=' font-bold'>Name:</span> {doctor.name}</p>
         <p><span className=' font-bold'>Age: </span>{doctor.age}</p>
         <p><span className=' font-bold'>Phone Number:</span> {doctor.phone_number}</p>
         <p><span className=' font-bold'>Online Days:</span> {doctor.online_days}</p>
         <p><span className=' font-bold'>Online Hours:</span> {doctor.online_hours}</p>
         <p><span className=' font-bold'>Balance:</span> {doctor.balance}</p>
-        <button  className=" bg-cyan-500 border-cyan-600 px-6 py-2 rounded-md text-white w-24" onClick={handleEdit} type="submit">Edit</button>
+        <button  className=" bg-teal-500 border-teal-600 px-6 py-2 rounded-md text-white w-24" onClick={handleEdit} type="submit">Edit</button>
 
         </div>
         </div>

@@ -192,13 +192,13 @@ const updatedValue = value !== null ? value : null;
   };
 
   return (
-    <Layout className="justify-items-center">
-      <div>
-        <h1 className="font-bold text-2xl">Edit Patient</h1>
+    <Layout>
+      <div className='sm:m-2 mt-20'>
+        <h1 className="font-bold sm:text-xl text-base">Edit Patient</h1>
         <br />
         <form onSubmit={handleSubmit} encType="multipart/form-data">
             <label>
-              <span className="font-bold">Name:</span>
+              <span className="font-bold sm:text-base text-sm">Name:</span>
               <Input
                 handleChange={handleNameChange}
                 value={patient.name}
@@ -211,7 +211,7 @@ const updatedValue = value !== null ? value : null;
               />
             </label>
             <label>
-              <span className="font-bold">age:</span>
+              <span className="font-bold sm:text-base text-sm">age:</span>
               <Input
                 handleChange={handleAgeChange}
                 value={patient.age}
@@ -224,7 +224,7 @@ const updatedValue = value !== null ? value : null;
               />
             </label>
             <label>
-              <span className="font-bold">Address:</span>
+              <span className="font-bold sm:text-base text-sm">Address:</span>
               <Input
                 handleChange={handleAddressChange}
                 value={patient.address}
@@ -238,7 +238,7 @@ const updatedValue = value !== null ? value : null;
               />
             </label>
             <label>
-              <span className="font-bold">Doctor Name:</span>
+              <span className="font-bold sm:text-base text-sm">Doctor Name:</span>
               <Input
                 handleChange={handleDoctorNameChange}
                 value={patient.doctor_name}
@@ -253,7 +253,7 @@ const updatedValue = value !== null ? value : null;
             </label>
 
             <label>
-              <span className="font-bold">Number:</span>
+              <span className="font-bold sm:text-base text-sm">Number:</span>
               <Input
                 handleChange={handleNumberChange}
                 value={patient.number}
@@ -267,7 +267,7 @@ const updatedValue = value !== null ? value : null;
               />
             </label>
             <label>
-              <span className="font-bold">Health Status:</span>
+              <span className="font-bold sm:text-base text-sm">Health Status:</span>
               <Input
                 handleChange={handleHealthStatusChange}
                 value={patient.health_status}
@@ -281,7 +281,7 @@ const updatedValue = value !== null ? value : null;
               />
             </label>
             <label>
-              <span className="font-bold">Visits One:</span>
+              <span className="font-bold sm:text-base text-sm">Visits One:</span>
               <Input
                 handleChange={handleVisitsOneChange}
                 value={patient.visits_one}
@@ -295,7 +295,7 @@ const updatedValue = value !== null ? value : null;
               />
             </label>
             <label>
-              <span className="font-bold">Visits Two:</span>
+              <span className="font-bold sm:text-base text-sm">Visits Two:</span>
               <Input
                 handleChange={handleVisitsTwoChange}
                 value={patient.visits_two}
@@ -309,7 +309,7 @@ const updatedValue = value !== null ? value : null;
               />
             </label>
             <label>
-              <span className="font-bold">Visits Three:</span>
+              <span className="font-bold sm:text-base text-sm">Visits Three:</span>
               <Input
                 handleChange={handleVisitsThreeChange}
                 value={patient.visits_three}
@@ -323,7 +323,7 @@ const updatedValue = value !== null ? value : null;
               />
             </label>
             <label>
-              <span className="font-bold">Visits Four:</span>
+              <span className="font-bold sm:text-base text-sm">Visits Four:</span>
               <Input
                 handleChange={handleVisitsFourChange}
                 value={patient.visits_four}
@@ -337,7 +337,7 @@ const updatedValue = value !== null ? value : null;
               />
             </label>
             <label>
-              <span className="font-bold">price:</span>
+              <span className="font-bold sm:text-base text-sm">price:</span>
               <Input
                 handleChange={handlePriceChange}
                 value={patient.price}
@@ -350,17 +350,21 @@ const updatedValue = value !== null ? value : null;
                 customClass="your-custom-class"
               />
             </label>
-            <Input
-              handleChange={handleImageChange}
-              labelText="X-rays Image"
-              id="x_rays"
-              name="x_rays"
-              type="file"
-              isRequired={false}
-              placeholder="x_rays image"
-            />
             <label>
-              <span className="font-bold">Note :</span>
+            <span className="font-bold sm:text-base text-sm">X-rays Image:</span>
+            <Input
+                handleChange={handleImageChange}
+                labelText="X-rays Image"
+                id="x_rays"
+                name="x_rays"
+                type="file"
+                isRequired={false}
+                placeholder="x_rays image"
+                />
+            </label>
+
+            <label>
+              <span className="font-bold sm:text-base text-sm">Note :</span>
               <Input
                 handleChange={handleNoteChange}
                 value={patient.note}
@@ -374,7 +378,7 @@ const updatedValue = value !== null ? value : null;
               />
             </label>
             <button
-              className="bg-cyan-500 border-cyan-600 px-4 py-2 rounded-md text-white"
+              className="bg-teal-500 mb-2 border-teal-600 sm:px-4 px-2 sm:py-2 py-2 sm:text-lg text-sm rounded-md text-white"
               type="submit"
             >
               Update Patient

@@ -98,12 +98,12 @@ export default function EditExpense() {
 
   return (
     <Layout>
-      <div>
-        <h1 className="font-bold text-2xl">Edit Expense</h1>
+      <div  className='sm:m-2 mt-20'>
+        <h1 className="font-bold sm:text-xl text-base">Edit Expense</h1>
         <br></br>
         <form onSubmit={handleSubmit}>
           <label>
-            <span className=" font-bold">Medicinal materials:</span>
+            <span className=" font-bold sm:text-base text-sm">Medicinal materials:</span>
             <Input
               handleChange={handleMedicinalMaterialsChange}
               value={expense.medicinal_materials}
@@ -119,7 +119,7 @@ export default function EditExpense() {
           </label>
           <br />
           <label>
-            <span className=" font-bold">Count:</span>
+            <span className="font-bold sm:text-base text-sm">Count:</span>
 
             <Input
               handleChange={handleCountChange}
@@ -137,7 +137,7 @@ export default function EditExpense() {
           <br />
 
           <label>
-            <span className=" font-bold">Buy price:</span>
+            <span className="font-bold sm:text-base text-sm">Buy price:</span>
 
             <Input
               handleChange={handleBuyPriceChange}
@@ -154,7 +154,7 @@ export default function EditExpense() {
           </label>
           <br />
           <label>
-            <span className=" font-bold">Note:</span>
+            <span className="font-bold sm:text-base text-sm">Note:</span>
 
             <Input
               handleChange={handleNoteChange}
@@ -173,7 +173,7 @@ export default function EditExpense() {
 
 
           <br />
-          <button className=" bg-cyan-500 border-cyan-600 px-4 py-2 rounded-md text-white" type="submit">Update Expense</button>
+          <button className=" bg-teal-500 mb-2 border-teal-600 sm:px-4 px-2 sm:py-2 py-2 sm:text-lg text-sm rounded-md text-white" type="submit">Update Expense</button>
         </form>
       </div>
     </Layout>

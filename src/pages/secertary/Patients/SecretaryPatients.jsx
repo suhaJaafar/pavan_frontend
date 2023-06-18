@@ -56,6 +56,28 @@ export default function SecretaryPatients() {
   );
 });
 
+// Function to truncate the health status based on device type
+const truncateHealthStatus = (status) => {
+    const words = status.split(' ');
+
+    if (words.length > 5) {
+      if (isMobileDevice()) {
+        return words.slice(0, 2).join(' ') + '...';
+      } else {
+        return words.slice(0, 5).join(' ') + '...';
+      }
+    }
+
+    return status;
+  };
+
+  // Function to check if the device is a mobile device
+  const isMobileDevice = () => {
+    return /Mobi|Android/i.test(navigator.userAgent);
+  };
+
+
+
   const columns = React.useMemo(
     () => [
         {
@@ -71,9 +93,14 @@ export default function SecretaryPatients() {
         accessor: 'age',
       },
       {
-        Header: 'Status',
-        accessor: 'health_status',
-      },
+                Header: 'Health Status',
+                accessor: 'health_status',
+                Cell: ({ value }) => (
+                  <p className="text-sm sm:text-xl">
+                    {truncateHealthStatus(value)}
+                  </p>
+                ),
+              },
       {
             Header: 'Actions',
             accessor: 'actions', // Assign a unique accessor value for the Actions column
@@ -81,7 +108,7 @@ export default function SecretaryPatients() {
               <div className="flex gap-2">
             <Link
               to={`/patient/${row.original.id}`}
-              className="bg-teal-600 hover:bg-teal-700 text-white py-2 px-2 rounded"
+              className="bg-yellow-700 hover:bg-yellow-800 text-white py-2 px-2 rounded"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -205,7 +232,7 @@ export default function SecretaryPatients() {
             disabled={page === 0}
             className={`${
               page === 0 ? 'bg-gray-300 cursor-not-allowed' : 'bg-gray-500 hover:bg-gray-600'
-            } text-white py-2 px-2 rounded`}
+            } text-white sm:py-2 py-1 sm:px-2 px-1  sm:text-base text-xs rounded`}
           >
             Previous Page
           </button>
@@ -214,7 +241,7 @@ export default function SecretaryPatients() {
             disabled={page === totalPages - 1}
             className={`${
               page === totalPages - 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-gray-500 hover:bg-gray-600'
-            } text-white py-2 px-2 rounded`}
+            } text-white sm:py-2 py-1 sm:px-2 px-1  sm:text-base text-xs rounded`}
           >
             Next Page
           </button>

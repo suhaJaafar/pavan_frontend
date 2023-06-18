@@ -37,7 +37,7 @@ export default function AddAccount() {
 
     return (
         <Layout>
-      <div>
+      <div className='sm:m-2 mt-20'>
 
         <h2>Add Account</h2>
         <form onSubmit={handleSubmit}>
@@ -75,17 +75,17 @@ export default function AddAccount() {
                     value={roleName}
                     onChange={(e) => setRoleName(e.target.value)}
                     required
-                    className="w-auto px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="sm:w-auto w-30 sm:px-3 px-2 sm:py-2 py-1 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-teal-500"
 
                     >
-                    <option value="">Select Role</option>
-                    <option value="admin">Admin</option>
-                    <option value="doctor">Doctor</option>
-                    <option value="secretary">Secretary</option>
+                    <option className='text-sm sm:text-base sm:px-4 px-1' value="">Select Role</option>
+                    <option className='text-sm sm:text-base sm:px-4 px-1' value="admin">Admin</option>
+                    <option className='text-sm sm:text-base sm:px-4 px-1 ' value="doctor">Doctor</option>
+                    <option className='text-sm sm:text-base sm:px-4 px-1 ' value="secretary">Secretary</option>
         </select>
         <br></br>
         <br></br>
-          <button className=" bg-teal-200 border-teal-200 px-4 py-2 rounded-md text-white" type="submit">Add Account</button>
+          <button className=" bg-teal-400 border-teal-200 sm:px-4 px-2 sm:py-2 py-1 rounded-md text-white" type="submit">Add Account</button>
         </form>
       </div>
           </Layout>

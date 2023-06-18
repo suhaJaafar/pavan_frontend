@@ -25,14 +25,15 @@ export default function GetPatientById() {
 
   if (!patient) {
     return
-        <div>Loading patient details...</div>;
+    <Layout>
+        <div className='pl-4'>Loading...</div></Layout>;
   }
-
+//  style={{ backgroundImage: `url(${BgPatient})` }}
   return (
     <Layout>
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center m-2">
       <div className="w-full bg-gray-50 grid gap-5 rounded-lg shadow-lg ">
-      <div className="grid grid-cols-3 justify-items-center h-36 w-full rounded-t-lg bg-cover" style={{ backgroundImage: `url(${BgPatient})` }}>
+      <div className=" text-white grid grid-cols-3 justify-items-center h-36 w-full rounded-t-lg bg-cover  bg-gradient-to-br from-yellow-200 from-5% via-teal-300 via-50% to-teal-400 to-80% ">
         <div className='pt-20 justify-self-start pl-10'>
             {patient.name && (
               <div>
@@ -47,7 +48,7 @@ export default function GetPatientById() {
 
             </div>
             <div>
-            <h1 className=" text-gray-800 pt-14 block font-sans text-3xl font-semibold leading-tight tracking-normalantialiased ">
+            <h1 className=" text-gray-100 pt-14 block font-sans text-3xl font-semibold leading-tight tracking-normalantialiased ">
                 Patient Details
                 </h1>
                 </div>
