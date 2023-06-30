@@ -5,7 +5,7 @@ import Layout from '../../../layout/Layout';
 import Input from '../../../component/Input';
 import Swal from 'sweetalert2';
 
-export default function EditPatientForm() {
+export default function EditPatientBySecretary() {
   const { id } = useParams();
   const navigate = useNavigate();
 

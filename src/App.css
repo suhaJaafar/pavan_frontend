@@ -6,7 +6,18 @@
   height: 40vmin;
   pointer-events: none;
 }
-
+.status-cell {
+  /* Add your desired styles here */
+  font-weight: thin;
+background-color:teal;
+padding-top:5px;
+padding-bottom:5px;
+padding-left:8px;
+padding-right:8px;
+border:2px solid teal;
+border-radius:50%;
+color:white;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

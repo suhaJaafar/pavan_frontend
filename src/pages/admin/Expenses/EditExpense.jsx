@@ -4,6 +4,7 @@ import api from '../../../api/api';
 import Layout from '../../../layout/Layout';
 import Input from '../../../component/Input';
 import Table from '../../../component/Table';
+import Swal from 'sweetalert2';
 
 export default function EditExpense() {
   const { id } = useParams();
@@ -63,37 +64,38 @@ export default function EditExpense() {
     }));
   };
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     const updatedUser = { ...user, role_name: user.role };
-//     api
-//       .post(`/user/${id}`, updatedUser)
-//       .then((res) => {
-//         // User updated successfully
-//         console.log('User updated:', res.data);
-//         // Navigate back to the users list
-//         navigate('/admin-users');
-//       })
-//       .catch((error) => {
-//         console.error('Error updating user:', error);
-//       });
-//   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedExpense = { ...expense };
     api
       .put(`/expenses/${id}`, updatedExpense)
       .then((res) => {
-        // User updated successfully
-        console.log('User updated:', res.data);
-        // Navigate back to the users list
-        navigate(-1);
+        // Expense updated successfully
+        console.log('Expense updated:', res.data);
+        // Show SweetAlert2 success message
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Expense updated successfully!',
+            showConfirmButton: false,
+            customClass: {
+                container: ' p-1 sm:p-1',
+                icon: 'text-xs sm:text-xs',
+                title: 'sm:text-base text-sm font-bold text-teal-500 p-1 sm:p-1',
+                content: 'sm:text-sm text-xs text-teal-600 p-1 sm:p-1',
+                confirmButton: ' text-white rounded-md p-1 sm:p-1',
+              },
+            timer: 3000
+              }).then(() => {
+          // Navigate back to the users list
+          navigate(-1);
+        });
       })
       .catch((error) => {
-        console.error('Error updating user:', error);
+        console.error('Error updating expense:', error);
       });
   };
+
 
 
   return (

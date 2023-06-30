@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import api from '../../../api/api';
 import Layout from '../../../layout/Layout';
 import Input from '../../../component/Input';
+import Swal from 'sweetalert2';
 
 const Edit = () => {
   const [doctor, setDoctor] = useState({
@@ -74,7 +75,20 @@ const Edit = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'user updated successfully',
+        showConfirmButton: false,
+        customClass: {
+            container: ' p-1 sm:p-1',
+            icon: 'text-xs sm:text-xs',
+            title: 'sm:text-base text-sm font-bold text-teal-500 p-1 sm:p-1',
+            content: 'sm:text-sm text-xs text-teal-600 p-1 sm:p-1',
+            confirmButton: ' text-white rounded-md p-1 sm:p-1',
+          },
+        timer: 3000
+      })
       navigate(-1);
       console.log('Doctor profile updated successfully');
     } catch (error) {
@@ -90,7 +104,7 @@ const Edit = () => {
         <form onSubmit={handleSubmit}>
           <div>
             <label>Name:</label>
-            <Input type="text" name="name" value={doctor.name} onChange={handleInputChange} />
+            <Input type="text" name="name" value={doctor.name} handleChange={handleInputChange}/>
           </div>
           <div>
             <label>Profile Image:</label>
@@ -121,17 +135,18 @@ const Edit = () => {
             <Input
               type="text"
               name="phoneNumber"
+              id="phone_number"
               value={doctor.phoneNumber}
-              onChange={handleInputChange}
+              handleChange={handleInputChange}
             />
           </div>
         <div>
           <label>Online Days:</label>
-          <Input type="text" value={doctor.onlineDays} name="onlineDays" onChange={handleInputChange} />
+          <Input type="text" value={doctor.onlineDays} name="onlineDays" id="online_days" handleChange={handleInputChange}/>
         </div>
         <div>
           <label>Online Hours:</label>
-          <Input type="text" value={doctor.onlineHours} name="onlineHours" onChange={handleInputChange} />
+          <Input type="text" value={doctor.onlineHours} id="online_hours" name="onlineHours" handleChange={handleInputChange} />
         </div>
 
         <button className="bg-teal-500 border-teal-600 px-4 py-2 rounded-md text-white" type="submit">Save</button>

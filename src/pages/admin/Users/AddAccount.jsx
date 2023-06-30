@@ -3,13 +3,14 @@ import api from '../../../api/api';
 import Input from '../../../component/Input';
 import Layout from '../../../layout/Layout';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 export default function AddAccount() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [roleName, setRoleName] = useState(''); // Use roleName instead of roleId
+    const [roleName, setRoleName] = useState('');
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -22,8 +23,22 @@ export default function AddAccount() {
           role_name: roleName,
         });
 
-        console.log(response.data);
-        navigate(-1);
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'User added successfully!',
+            showConfirmButton: false,
+            customClass: {
+                container: ' p-1 sm:p-1',
+                icon: 'text-xs sm:text-xs',
+                title: 'sm:text-base text-sm font-bold text-teal-500 p-1 sm:p-1',
+                content: 'sm:text-sm text-xs text-teal-600 p-1 sm:p-1',
+                confirmButton: ' text-white rounded-md p-1 sm:p-1',
+              },
+            timer: 3000
+          }).then(() => {
+            navigate(-1);
+          });
 
         setName('');
         setEmail('');

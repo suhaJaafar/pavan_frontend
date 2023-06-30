@@ -118,6 +118,7 @@ import Table from '../../component/Table';
 import api from '../../api/api';
 import { Link } from 'react-router-dom';
 import Input from '../../component/Input';
+import '../../App.css';
 
 const PatientsList = () => {
   const [patients, setPatients] = useState([]);
@@ -186,6 +187,13 @@ const PatientsList = () => {
         </p>
       ),
     },
+    {
+        Header: 'Status',
+        accessor: 'status',
+        Cell: ({ value }) => (
+            <span className="status-cell">{value}</span>
+          ),
+      },
     {
       Header: 'Actions',
       accessor: 'actions',

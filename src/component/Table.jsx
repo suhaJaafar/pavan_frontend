@@ -16,7 +16,7 @@ const Table = ({ columns, data }) => {
                     {headerGroup.headers.map(column => (
                       <th
                         {...column.getHeaderProps()}
-                        className="px-1 py-2 sm:py-3 sm:px-6 text-left sm:text-lg text-xs font-medium text-gray-500 uppercase tracking-wider"
+                        className="px-1 py-2 sm:py-2 sm:px-2 text-left sm:text-lg text-xs font-medium text-gray-500 uppercase tracking-wider"
                       >
                         {column.render('Header')}
                       </th>
@@ -33,7 +33,7 @@ const Table = ({ columns, data }) => {
                         return (
                           <td
                             {...cell.getCellProps()}
-                            className="px-2 py-2 sm:py-3 sm:px-6 whitespace-wrap sm:text-base text-xs text-gray-500"
+                            className="px-2 py-2 sm:py-2 sm:px-2 whitespace-wrap sm:text-base text-xs text-gray-500"
                           >
                             {cell.render('Cell')}
                           </td>

@@ -4,23 +4,28 @@ import Layout from '../../../layout/Layout';
 import api from '../../../api/api';
 import Table from '../../../component/Table';
 import Input from '../../../component/Input';
-import '../../../App.css';
 import Swal from 'sweetalert2';
 
-export default function SecretaryPatients() {
-  const [patients, setPatients] = useState([]);
+export default function Visitor() {
+  const [visitors, setVisitors] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const patientsPerPage = 10;
 
   useEffect(() => {
     api
-      .get(`/patients?page=${currentPage}`)
+      .get(`/patients/visitors?page=${currentPage}`)
       .then((res) => {
-        setPatients(res.data);
+        const response = res.data;
+        console.log(response); // Log the response to the console
+        if (Array.isArray(response.visitors)) {
+          setVisitors(response.visitors);
+        } else {
+          console.error('Invalid response: Expected an array of visitors.');
+        }
       })
       .catch((error) => {
-        console.error('Error fetching patients:', error);
+        console.error('Error fetching visitors:', error);
       });
   }, [currentPage]);
 
@@ -28,11 +33,10 @@ export default function SecretaryPatients() {
     setSearchQuery(e.target.value);
   };
 
-
   const handleDeletePatient = (patientId) => {
     Swal.fire({
-      title: 'Delete Patient',
-      text: 'Are you sure you want to delete this patient?',
+      title: 'Delete Visitor',
+      text: 'Are you sure you want to delete this visitor?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Delete',
@@ -45,11 +49,11 @@ export default function SecretaryPatients() {
             // Patient deleted successfully
             console.log(`Patient with ID ${patientId} deleted.`);
             // Update the patients state by removing the deleted patient
-            setPatients((prevPatients) => prevPatients.filter((patient) => patient.id !== patientId));
+            setVisitors((prevPatients) => prevPatients.filter((patient) => patient.id !== patientId));
             // Show success message
             Swal.fire({
               title: 'Deleted!',
-              text: 'Patient deleted successfully',
+              text: 'Visitor deleted successfully',
               icon: 'success',
               confirmButtonText: 'OK',
             });
@@ -59,41 +63,18 @@ export default function SecretaryPatients() {
           });
       }
     });
-  }
+  };
 
-  const filteredPatients = patients.filter((patient) => {
+
+  const filteredPatients = visitors.filter((patient) => {
   const name = patient.name || ''; // handle undefined name
-  const age = patient.age || ''; // handle undefined age
-  const status = patient.health_status || ''; // handle undefined status
+  const age = patient.age || '';
 
   return (
     name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    age.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    status.toLowerCase().includes(searchQuery.toLowerCase())
+    age.toLowerCase().includes(searchQuery.toLowerCase())
   );
 });
-
-// Function to truncate the health status based on device type
-const truncateHealthStatus = (status) => {
-    const words = status.split(' ');
-
-    if (words.length > 5) {
-      if (isMobileDevice()) {
-        return words.slice(0, 2).join(' ') + '...';
-      } else {
-        return words.slice(0, 5).join(' ') + '...';
-      }
-    }
-
-    return status;
-  };
-
-  // Function to check if the device is a mobile device
-  const isMobileDevice = () => {
-    return /Mobi|Android/i.test(navigator.userAgent);
-  };
-
-
 
   const columns = React.useMemo(
     () => [
@@ -110,29 +91,17 @@ const truncateHealthStatus = (status) => {
         accessor: 'age',
       },
       {
-        Header: 'Status',
-        accessor: 'status',
-        Cell: ({ value }) => (
-            <span className="status-cell">{value}</span>
-          ),
+        Header: 'Appointment',
+        accessor: 'appointment',
       },
       {
-                Header: 'Health Status',
-                accessor: 'health_status',
-                Cell: ({ value }) => (
-                  <p className="text-sm sm:text-xl">
-                    {truncateHealthStatus(value)}
-                  </p>
-                ),
-              },
-      {
             Header: 'Actions',
-            accessor: 'actions', // Assign a unique accessor value for the Actions column
+            accessor: 'actions',
             Cell: ({ row }) => (
               <div className="flex gap-2">
             <Link
               to={`/patient/${row.original.id}`}
-              className="bg-yellow-700 hover:bg-yellow-800 text-white py-2 px-2 rounded"
+              className="bg-yellow-700 hover:bg-yellow-800 text-white   sm:py-2 sm:px-2 px-1 py-1  rounded"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +126,7 @@ const truncateHealthStatus = (status) => {
 
             <Link
               to={`/patient/${row.original.id}/edit-by-secretary`}
-              className=" bg-gray-500 hover:bg-gray-600 text-white py-2 px-2  rounded"
+              className=" bg-gray-500 hover:bg-gray-600 text-white   sm:py-2 sm:px-2 px-1 py-1   rounded"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -176,7 +145,7 @@ const truncateHealthStatus = (status) => {
             </Link>
             <button
               onClick={() => handleDeletePatient(row.original.id)}
-              className="bg-red-500 hover:bg-red-600 text-white py-2 px-2 rounded"
+              className="bg-red-500 hover:bg-red-600 text-white   sm:py-2 sm:px-2 px-1 py-1  rounded"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -213,32 +182,31 @@ const truncateHealthStatus = (status) => {
     setPage((prevPage) => prevPage - 1);
   };
 
+//   // Function to truncate the health status based on device type
+//   const truncateHealthStatus = (status) => {
+//     const words = status.split(' ');
+
+//     if (words.length > 5) {
+//       if (isMobileDevice()) {
+//         return words.slice(0, 2).join(' ') + '...';
+//       } else {
+//         return words.slice(0, 5).join(' ') + '...';
+//       }
+//     }
+
+//     return status;
+//   };
+
+  // Function to check if the device is a mobile device
+//   const isMobileDevice = () => {
+//     return /Mobi|Android/i.test(navigator.userAgent);
+//   };
+
   return (
     <Layout>
       <div className="my-4 mx-auto max-w-2xl">
-        <div className="flex justify-end mb-4">
-          <Link
-            to="/add-patient-by-secretary"
-            className=" text-lg flex items-center gap-2 bg-teal-300 hover:bg-teal-400 text-white py-2 px-4 rounded"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth="1.5"
-              stroke="currentColor"
-              className=" h-8 w-8"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 4.5v15m7.5-7.5h-15"
-              />
-            </svg>
-            Add New patient
-          </Link>
-        </div>
-        <h2 className="text-xl font-bold mb-4">patient List</h2>
+
+        <h2 className="sm:text-xl text-base font-bold mb-4">Visitor List</h2>
         <Input
           handleChange={handleSearchChange}
           value={searchQuery}

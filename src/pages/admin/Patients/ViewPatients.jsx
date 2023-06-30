@@ -4,6 +4,9 @@ import Layout from '../../../layout/Layout';
 import api from '../../../api/api';
 import Table from '../../../component/Table';
 import Input from '../../../component/Input';
+import '../../../App.css';
+import Swal from 'sweetalert2';
+
 
 export default function ViewPatients() {
   const [patients, setPatients] = useState([]);
@@ -27,32 +30,49 @@ export default function ViewPatients() {
   };
 
   const handleDeletePatient = (patientId) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this patient?');
-    if (confirmDelete) {
-      api
-        .delete(`/patients/${patientId}`)
-        .then((res) => {
-          // patient deleted successfully
-          console.log(`patient with ID ${patientId} deleted.`);
-          // Update the patients state by removing the deleted patient
-          setPatients((prevPatients) => prevPatients.filter((patient) => patient.id !== patientId));
-        })
-        .catch((error) => {
-          console.error('Error deleting patient:', error);
-        });
-    }
+    Swal.fire({
+      title: 'Delete Patient',
+      text: 'Are you sure you want to delete this patient?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Delete',
+      cancelButtonText: 'Cancel',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        api
+          .delete(`/patients/${patientId}`)
+          .then((res) => {
+            // Patient deleted successfully
+            console.log(`Patient with ID ${patientId} deleted.`);
+            // Update the patients state by removing the deleted patient
+            setPatients((prevPatients) => prevPatients.filter((patient) => patient.id !== patientId));
+            // Show success message
+            Swal.fire({
+              title: 'Deleted!',
+              text: 'Patient deleted successfully',
+              icon: 'success',
+              confirmButtonText: 'OK',
+            });
+          })
+          .catch((error) => {
+            console.error('Error deleting patient:', error);
+          });
+      }
+    });
   };
 
 
   const filteredPatients = patients.filter((patient) => {
   const name = patient.name || ''; // handle undefined name
-  const age = patient.age || ''; // handle undefined age
-  const status = patient.health_status || ''; // handle undefined status
+  const age = patient.age || '';
+  const status = patient.status || ''; // handle undefined age
+  const health_status = patient.health_status || ''; // handle undefined status
 
   return (
     name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     age.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    status.toLowerCase().includes(searchQuery.toLowerCase())
+    status.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    health_status.toLowerCase().includes(searchQuery.toLowerCase())
   );
 });
 
@@ -78,6 +98,13 @@ export default function ViewPatients() {
             {truncateHealthStatus(value)}
           </p>
         ),
+      },
+      {
+        Header: 'Status',
+        accessor: 'status',
+        Cell: ({ value }) => (
+            <span className="status-cell">{value}</span>
+          ),
       },
       {
             Header: 'Actions',

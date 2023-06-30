@@ -244,7 +244,7 @@ import Layout from '../../../layout/Layout';
 import Input from '../../../component/Input';
 import Swal from 'sweetalert2';
 
-export default function AddPatient() {
+export default function AddPatientBySecretary() {
   const navigate = useNavigate();
 
   const [patient, setPatient] = useState({

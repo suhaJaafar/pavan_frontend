@@ -80,6 +80,7 @@ const Layout = ({ children }) => {
           { label: 'Dashboard', path: '/admin-dashboard', icon: AiOutlineHome, gap: false },
           { label: 'Users', path: '/admin-users', icon: BsPeople, gap: false },
           { label: 'Patients', path: '/patients', icon: BsHeartPulse, gap: false },
+          { label: 'Visitors', path: '/visitors', icon: BsHeartPulse, gap: false },
           { label: 'Expenses', path: '/admin-expenses', icon: SlWallet, gap: false },
           { label: 'My Account', path: '/viewaccount', icon: BsGear, gap: false },
           { label: 'Balance', path: '/balance', icon: BsGraphUpArrow, gap: false },
@@ -89,6 +90,7 @@ const Layout = ({ children }) => {
         return [
           { label: 'Dashboard', path: '/doctor-dashboard', icon: AiOutlineHome, gap: false },
           { label: 'Patients', path: '/patient-list', icon: BsHeartPulse, gap: false },
+          { label: 'Visitors', path: '/doctor-visitors', icon: BsHeartPulse, gap: false },
           { label: 'My Account', path: '/account', icon: BsGear, gap: false },
           { label: 'Logout', path: '/', icon: BsBoxArrowLeft, gap: false, onClick: logout },
         ];
@@ -96,8 +98,8 @@ const Layout = ({ children }) => {
         return [
           { label: 'Dashboard', path: '/secretary-dashboard', icon: AiOutlineHome, gap: false },
           { label: 'Patients', path: '/secretary-patients', icon: BsHeartPulse, gap: false },
-          { label: 'My Account', path: '/viewaccount', icon: BsGear, gap: false },
-
+          { label: 'Visitors', path: '/secretary-visitors', icon: BsHeartPulse, gap: false },
+          { label: 'My Account', path: '/viewsecretaryaccount', icon: BsGear, gap: false },
           { label: 'Logout', path: '/', icon: BsBoxArrowLeft, gap: false, onClick: logout },
         ];
       default:

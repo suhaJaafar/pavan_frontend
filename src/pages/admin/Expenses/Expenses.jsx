@@ -4,6 +4,7 @@ import Layout from "../../../layout/Layout";
 import Input from "../../../component/Input";
 import Table from "../../../component/Table";
 import { Link, useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 
 export default function Expenses() {
@@ -12,23 +13,54 @@ export default function Expenses() {
   const [currentPage, setCurrentPage] = useState(1);
   const patientsPerPage = 10;
   const [filteredExpenses, setFilteredExpenses] = useState([]);
+  const navigate = useNavigate();
 
   const handleDeleteExpense = (expenseId) => {
-    const confirmDelete = window.confirm('Are you sure you want to delete this expense?');
-    if (confirmDelete) {
-      api
-        .delete(`/expenses/${expenseId}`)
-        .then((res) => {
-          // User deleted successfully
-          console.log(`Expense with ID ${expenseId} deleted.`);
-          // Update the users state by removing the deleted user
-          setExpenses((prevExpense) => prevExpense.filter((expense) => expense.id !== expenseId));
-        })
-        .catch((error) => {
-          console.error('Error deleting expense:', error);
-        });
-    }
+    Swal.fire({
+      icon: 'warning',
+      title: 'Confirm Delete',
+      text: 'Are you sure you want to delete this expense?',
+      showCancelButton: true,
+      confirmButtonColor: '#F24C3D',
+      cancelButtonColor: '#9DB2BF',
+      confirmButtonText: 'Delete',
+      customClass: {
+        // container: 'max-w-sm max-h-sm p-0',
+                title: 'sm:text-xl text-sm sm:p-0 p-0',
+        text:'',
+        cancelButton:'sm:text-sm text-sm ',
+        confirmButton:'sm:text-sm text-sm ',
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        api
+          .delete(`/expenses/${expenseId}`)
+          .then((res) => {
+            // Expense deleted successfully
+            console.log(`Expense with ID ${expenseId} deleted.`);
+            // Update the expenses state by removing the deleted expense
+            setExpenses((prevExpenses) => prevExpenses.filter((expense) => expense.id !== expenseId));
+            Swal.fire({
+              icon: 'success',
+              title: 'Expense Deleted',
+              text: 'Expense has been deleted successfully!',
+              customClass: {
+                title: 'sm:text-base text-sm',
+              }
+            });
+          })
+          .catch((error) => {
+            console.error('Error deleting expense:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'An error occurred while deleting the expense.',
+            });
+          });
+      }
+    });
   };
+
   const columns = [
     {
         Header: 'ID',
@@ -38,18 +70,14 @@ export default function Expenses() {
       Header: 'Medicinal Materials',
       accessor: 'medicinal_materials',
     },
-    // {
-    //   Header: 'Count',
-    //   accessor: 'count',
-    // },
+    {
+      Header: 'Count',
+      accessor: 'count',
+    },
     {
       Header: 'Buy Price',
       accessor: 'buy_price',
     },
-    // {
-    //   Header: 'Note',
-    //   accessor: 'note',
-    // },
     {
         Header: 'Actions',
         accessor: 'actions',
@@ -63,7 +91,7 @@ export default function Expenses() {
             </Link>
 
             <Link
-              to={`/expenses/${row.original.id}/edit`} // Replace with the appropriate edit user route
+              to={`/expenses/${row.original.id}/edit`}
               className=" bg-gray-500 hover:bg-gray-600 text-white   sm:py-2 sm:px-2 px-1 py-1  rounded"
             >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -133,7 +161,7 @@ export default function Expenses() {
   };
   return (
     <Layout>
-      <div className="sm:my-4 pt-12 sm:mx-auto sm:max-w-4xl">
+      <div className="sm:my-4 pt-12 sm:mx-auto sm:max-w-2xl">
       <div className="flex justify-end mb-4">
           <Link
             to="/add-expense"
@@ -142,7 +170,7 @@ export default function Expenses() {
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"  className=" sm:h-8 h-4 sm:w-8 w-4">
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
-            Add New User
+            Add New Expense
           </Link>
         </div>
         <h2 className="sm:text-xl text-base font-bold mb-4">Expenses List</h2>
