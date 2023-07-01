@@ -11,26 +11,9 @@ export default function Visitor() {
   const [searchQuery, setSearchQuery] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const visitorsPerPage = 10;
+  const [customIds, setCustomIds] = useState({});
 
-  useEffect(() => {
-    api
-      .get(`/patients/visitors?page=${currentPage}`)
-      .then((res) => {
-        const response = res.data;
-        console.log(response); // Log the response to the console
-        if (Array.isArray(response.visitors)) {
-          setVisitors(response.visitors);
-        } else {
-          console.error('Invalid response: Expected an array of visitors.');
-        }
-      })
-      .catch((error) => {
-        console.error('Error fetching visitors:', error);
-      });
-  }, [currentPage]);
-
-
-  const handleSearchChange = (e) => {
+const handleSearchChange = (e) => {
     setSearchQuery(e.target.value);
   };
 
@@ -66,7 +49,6 @@ export default function Visitor() {
     });
   };
 
-
   const filteredPatients = visitors.filter((patient) => {
   const name = patient.name || ''; // handle undefined name
   const age = patient.age || '';
@@ -76,12 +58,51 @@ export default function Visitor() {
     age.toLowerCase().includes(searchQuery.toLowerCase())
   );
 });
+  useEffect(() => {
+    api
+      .get(`/patients/visitors?page=${currentPage}`)
+      .then((res) => {
+        const response = res.data;
+        console.log(response); // Log the response to the console
+        if (Array.isArray(response.visitors)) {
+          setVisitors(response.visitors);
+        } else {
+          console.error('Invalid response: Expected an array of visitors.');
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching visitors:', error);
+      });
+  }, [currentPage]);
+  useEffect(() => {
+    // Update customIds when patients change
+    const updatedCustomIds = {};
+    visitors.forEach((patient, index) => {
+      updatedCustomIds[patient.id] =
+        (currentPage - 1) * visitorsPerPage + index + 1;
+    });
+    setCustomIds(updatedCustomIds);
+  }, [visitors, currentPage, visitorsPerPage]);
+
+
+
+
+
+
 
   const columns = React.useMemo(
     () => [
         {
             Header: 'ID',
-            accessor: 'id',
+            accessor: (row) => ({
+              customId: customIds[row.id],
+              originalId: row.id,
+            }),
+            Cell: ({ value }) => (
+              <p className="text-sm sm:text-xl">
+                {value.customId}
+              </p>
+            ),
           },
       {
         Header: 'Name',
@@ -167,14 +188,16 @@ export default function Visitor() {
         ),
       },
     ],
-    []
+    [customIds]
   );
 
   const [page, setPage] = useState(0);
   const pageSize = 10;
   const totalPages = Math.ceil(filteredPatients.length / pageSize);
-  const paginatedPatients = filteredPatients.slice(page * pageSize, (page + 1) * pageSize);
-
+  const paginatedPatients = filteredPatients.slice(
+    page * pageSize,
+    (page + 1) * pageSize
+  );
   const handleNextPage = () => {
     setPage((prevPage) => prevPage + 1);
   };
