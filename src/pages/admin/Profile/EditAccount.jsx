@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../../api/api';
 import Layout from '../../../layout/Layout';
 import Input from '../../../component/Input';
+import Swal from 'sweetalert2';
 
 const EditAccount = () => {
   const { id } = useParams();
@@ -36,7 +37,7 @@ const EditAccount = () => {
     if (name === 'profile_img') {
       setUser((prevUser) => ({
         ...prevUser,
-        profile_img: files[0], // Store the file object in the state
+        profile_img: files[0],
       }));
     } else {
       setUser((prevUser) => ({
@@ -72,6 +73,20 @@ const EditAccount = () => {
       });
 
       console.log('User profile updated:', response.data);
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'user updated successfully',
+        showConfirmButton: false,
+        customClass: {
+            container: ' p-1 sm:p-1',
+            icon: 'text-xs sm:text-xs',
+            title: 'sm:text-base text-sm font-bold text-teal-500 p-1 sm:p-1',
+            content: 'sm:text-sm text-xs text-teal-600 p-1 sm:p-1',
+            confirmButton: ' text-white rounded-md p-1 sm:p-1',
+          },
+        timer: 3000
+      })
       navigate(-1);
     } catch (error) {
       console.error('Error updating user profile:', error);
@@ -79,13 +94,13 @@ const EditAccount = () => {
   };
 
   return (
-    <Layout className="justify-items-center">
-      <div>
-        <h1 className="font-bold text-2xl">Edit Profile</h1>
+    <Layout>
+      <div  className='sm:m-2 mt-20'>
+        <h1 className="font-bold sm:text-xl text-base">Edit Profile</h1>
         <br />
         <form onSubmit={handleSubmit} encType="multipart/form-data">
           <label>
-            <span className="font-bold">Name:</span>
+            <span className="font-bold sm:text-base text-sm">Name:</span>
             <Input
               handleChange={handleChange}
               value={user.name}
@@ -98,7 +113,7 @@ const EditAccount = () => {
             />
           </label>
           <label>
-            <span className="font-bold">Email:</span>
+            <span className="font-bold sm:text-base text-sm">Email:</span>
             <Input
               handleChange={handleChange}
               value={user.email}
@@ -110,7 +125,9 @@ const EditAccount = () => {
               placeholder="Enter email"
             />
           </label>
-          <Input
+          <label>
+          <span className="font-bold sm:text-base text-sm">Profile Image:</span>
+        <Input
             handleChange={handleImageChange}
             labelText="Profile Image"
             id="profile_img"
@@ -119,8 +136,10 @@ const EditAccount = () => {
             isRequired={false}
             placeholder="Profile image"
           />
+          </label>
+
           <button
-            className="bg-cyan-500 border-cyan-600 px-4 py-2 rounded-md text-white"
+            className="bg-teal-500 mb-2 border-teal-600 sm:px-4 px-2 sm:py-2 py-2 sm:text-lg text-sm rounded-md text-white"
             type="submit"
           >
             Update Profile

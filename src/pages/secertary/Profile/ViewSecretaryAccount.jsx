@@ -4,7 +4,7 @@ import api from '../../../api/api';
 import Layout from '../../../layout/Layout';
 import backgroundImage from '../../../assets/backgroundUseDetails.jpeg';
 
-export default function ViewAccount() {
+export default function ViewSecretaryAccount() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function ViewAccount() {
   return (
     <Layout>
       <div className="items-center flex-col sm:m-4 mt-20 h-auto bg-cover bg-white rounded-lg">
-        <div
+      <div
           className="relative mt-1 flex h-32 w-full justify-center rounded-lg bg-cover bg-gradient-to-br from-yellow-200 from-5% via-teal-300 via-50% to-teal-400 to-80% "
 
         >
@@ -35,7 +35,7 @@ export default function ViewAccount() {
             {/* <div className=""> */}
               {user.profile_img ? (
                 <img
-                  src={`http://localhost:8000/storage/profile_img/image/${user.profile_img}`}
+                  src={`https://pavan-clinic/storage/profile_img/image/${user.profile_img}`}
                   alt="User Profile"
                   className="w-24 h-24 object-cover"
                 />
@@ -60,18 +60,19 @@ export default function ViewAccount() {
         </div>
 
 
-      <div className="mt-16 flex flex-col items-center">
+        <div className="mt-16 flex flex-col items-center">
 
-      </div >
-      <div className='p-4'>
-                <p className="text-navy-700 sm:text-xl text:base font-bold dark:text-white pb-4">Name:<span className=' font-normal'> {user.name}</span></p>
-                    <p className="text-navy-700 sm:text-xl text:base font-bold dark:text-white"> Email: <span className=' font-normal'> {user.email}</span></p>
-            <br></br>
-      <Link to={`/edit/${user.id}`}>
-        <button  className=" bg-teal-500 hover:bg-teal-600 px-6 py-2 rounded-md text-white" type="submit">Edit</button>
+</div >
+<div className='p-4'>
+          <p className="text-navy-700 sm:text-xl text:base font-bold dark:text-white pb-4">Name:<span className=' font-normal'> {user.name}</span></p>
+              <p className="text-navy-700 sm:text-xl text:base font-bold dark:text-white"> Email: <span className=' font-normal'> {user.email}</span></p>
+      <br></br>
+      <Link to={`/edit-account/${user.id}`}>
+        <button  className=" bg-teal-500 border-teal-600 px-6 py-2 rounded-md text-white" type="submit">Edit</button>
       </Link>
       </div>
     </div>
+    {/* </div> */}
     </Layout>
   );
 }

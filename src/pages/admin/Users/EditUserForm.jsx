@@ -4,6 +4,7 @@ import api from '../../../api/api';
 import Layout from '../../../layout/Layout';
 import Input from '../../../component/Input';
 import Table from '../../../component/Table';
+import Swal from 'sweetalert2';
 
 export default function EditUserForm() {
   const { id } = useParams();
@@ -67,8 +68,24 @@ export default function EditUserForm() {
       .then((res) => {
         // User updated successfully
         console.log('User updated:', res.data);
-        // Navigate back to the users list
-        navigate('/admin-users');
+        // Show success message using SweetAlert2
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'user updated successfully',
+            showConfirmButton: false,
+            customClass: {
+                container: ' p-1 sm:p-1',
+                icon: 'text-xs sm:text-xs',
+                title: 'sm:text-base text-sm font-bold text-teal-500 p-1 sm:p-1',
+                content: 'sm:text-sm text-xs text-teal-600 p-1 sm:p-1',
+                confirmButton: ' text-white rounded-md p-1 sm:p-1',
+              },
+            timer: 3000
+          }).then(() => {
+          // Navigate back to the users list
+          navigate(-1);
+        });
       })
       .catch((error) => {
         console.error('Error updating user:', error);
@@ -77,7 +94,7 @@ export default function EditUserForm() {
 
   return (
     <Layout>
-      <div>
+      <div className='m-2'>
         <h1 className="font-bold text-2xl">Edit User</h1>
         <br />
         <form onSubmit={handleSubmit}>
@@ -121,18 +138,18 @@ export default function EditUserForm() {
               value={user.role}
               onChange={handleRoleChange}
               required
-              className="w-auto px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="sm:w-auto w-30 sm:px-3 px-2 sm:py-2 py-1 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
               <option value="">Select Role</option>
               {roleOptions.map((option) => (
-                <option key={option.value} value={option.value}>
+                <option  className='text-xs sm:text-base sm:px-4 px-1' key={option.value} value={option.value}>
                   {option.label}
                 </option>
               ))}
             </select>
           </label>
           <br />
-          <button className="bg-cyan-500 border-cyan-600 px-4 py-2 rounded-md text-white" type="submit">
+          <button className="bg-teal-500 border-teal-600 sm:px-4 px-2 sm:py-2 py-1 rounded-md text-white" type="submit">
             Update User
           </button>
         </form>
